@@ -1,0 +1,333 @@
+﻿ body
+{
+    cursor:url(../Image/cursor.png), auto;
+}
+
+.inline_block
+{
+    display: -moz-inline-stack;
+    display: inline-block;
+    *display: inline;
+    zoom: 1;
+    vertical-align:top;
+}
+
+#game_body ul
+{
+    margin: 0;
+    padding: 0;
+}
+#game_body ul li
+{
+    list-style: disc inside none;
+}
+
+/* 用inline-block的话，li之间有间距！要去掉间距。此处使用font-size的方法 */
+#game_body ul.index_prop li
+{
+    
+      display: -moz-inline-stack;
+    display: inline-block;
+    *display: inline;
+    zoom: 1;
+    vertical-align:top;
+    
+    font-size:14px;
+    list-style:none;
+    border:0px solid red;
+}
+#game_body ul.index_prop
+{
+    font-size:0;
+    border:0px solid red;
+    padding: 0;
+}
+
+.border_1 
+{
+    border:1px solid black;
+}
+
+.border_2
+{
+    border: 1px solid blue;
+    font-size: 14px;
+}
+
+
+
+
+/* Boss */
+#game_body .smallMap 
+{
+    border:1px solid black;
+    /*height:120px;
+    width:200px;*/
+        display: -moz-inline-stack;
+    display: inline-block;
+    *display: inline;
+    zoom: 1;
+    vertical-align:top;
+    
+    font-size:14px;
+}
+
+#game_body .smallMap_info
+{
+    height:120px;
+    width:170px;
+    border: 1px solid black;
+    display: -moz-inline-stack;
+    display: inline-block;
+    *display: inline;
+    zoom: 1;
+    vertical-align:top;
+        
+    font-size:14px;
+}
+#game_body .smallMap_info li
+{
+    list-style:none;
+    padding:5px;
+}
+#game_body .smallMap_img
+{
+    height:120px;
+    width:120px;
+    border: 1px solid black;
+    display: -moz-inline-stack;
+    display: inline-block;
+    *display: inline;
+    zoom: 1;
+    vertical-align:top;
+}
+#game_body .boss_basicInfo
+{
+    text-align:left;
+    border:0px solid red;
+}
+#game_body .boss_basicInfo ul
+{
+    border:0px solid red;
+    font-size:0px;
+    padding:0;
+}
+#game_body .boss_basicInfo li
+{
+    display: -moz-inline-stack;
+    display: inline-block;
+    *display: inline;
+    zoom: 1;
+    vertical-align:top;
+      border:0px solid red;  
+    font-size:14px;
+    list-style:none;
+    margin-left:10px;
+    margin-top:5px;
+}
+
+
+
+/* 右侧信息 */
+#game_body .right_info
+{
+    overflow:auto;
+    height:500px;
+}
+
+
+
+/* 选中方块框 */
+#game_body .select
+{
+    position:absolute;
+    left:-4000px;
+    top:0px;
+    height:30px;
+    width:25px;
+    border: 3px solid black;
+    z-index:100;    /* 设置z-index，使其能够覆盖路径提示方块框 */
+}
+
+
+/*
+.lineContainer{
+	position:relative;
+}
+*/
+#game_body .lineContainer div{
+	position:absolute; 
+	left:-4000px;
+	top:0px;
+	/*z-index:0;*/
+}
+/*
+.boom
+{
+    z-index:11;
+}
+*/
+/* 实现图片并排（横向排列的图片，如果不设置position，则如果总宽度大于外层（.lineX）的宽度，则会换行！） 
+.lineContainer .lineX
+{
+    overflow:hidden;
+}
+
+.lineContainer .lineX img
+{
+    position:relative;
+}
+
+.lineContainer .lineY
+{
+    overflow:hidden;
+}
+*/
+
+/* 路径提示方块框 */
+#game_body .lineContainer .clue
+{
+    position:absolute;
+    left:-4000px;
+    top:0px;
+    height:35px;
+    width:31px;
+   /* border: 0px solid red;*/
+    z-index:10;
+}
+/* 边框层 */
+#game_body .lineContainer .clue_border
+{
+    position:absolute;
+    left:0px;
+    width:25px;
+    height:30px;
+    border: 3px solid red;
+    z-index:11;
+}
+
+#game_body .lineContainer .clue_img
+{
+}
+
+
+
+/*
+.line
+{
+    position:absolute;
+    left:0px;
+    top:0px;
+}
+*/
+
+
+
+
+#game_body #gameStatus{
+	margin-top:10px; font-weight:bold;
+	margin-left:50px;
+}
+#game_body #gameStatus div{
+	line-height:22px; height:22px;
+}
+#game_body #gameStatus #countDown{
+	left: 10px;
+}
+#game_body #gameStatus #timeLine
+{
+    
+	left:65px; background:url(../Image/Line.png) no-repeat; width:380px;
+}
+#game_body #gameStatus #timeLine div
+{
+    border: 0px solid red;
+        background: url(../Image/LineTime.png) repeat-x;
+    background-position: 0px 4px;
+    position: relative;
+    left: 16px;
+    width: 0px;
+}
+#game_body #gameStatus #leftBox{
+	left:450px;
+}
+
+
+#game_body #gameMsg{ 
+	display:none;
+	position:absolute; left:0px; top:0px; 
+	/*width:598px; height:420px; */
+	width:250px; height:250px;
+	z-index:200;
+}
+
+#game_body #gameMsg div
+{
+    width:250px; height:35px;
+	 text-align:center; 
+	 /*background:#374D76;*/
+	font-weight:bolder; font-size:40px; line-height:35px; font-family:Arial; letter-spacing:1px;
+	color:black;
+}
+
+#game_body #index_showScore{
+	z-index:201;    /* 显示在#gameMsg之上 */
+    display:none;
+	width:250px; height:35px;
+	
+	margin-top: -50px;
+	
+	 text-align:center; 
+	 /*background:#374D76;*/
+	font-weight:bolder; font-size:40px; line-height:35px; font-family:Arial; letter-spacing:1px;
+	color:black;
+}
+
+/* 按钮 */
+#game_body .index_button
+{
+    margin-left:10px;
+}
+
+/* 里面的内容居中 */
+#game_body .in_center
+{
+    display:table;text-align:center; 
+    border:0px solid red;
+    width:100%;
+}
+
+/* 信息列标题 */
+#game_body h1
+{
+    text-align:center;
+}
+#game_body h2
+{
+    text-align:center;
+}
+#game_body h3
+{
+    text-align:center;
+}
+
+/* 信息列1 */
+#game_body .info_1 li
+{
+    list-style:none;
+}
+
+/* 信息列2 */
+#game_body .info_2 ul
+{
+    margin-left:20px;
+}
+
+
+
+
+
+#game_body .left_20
+{
+    margin-left:20px;
+}

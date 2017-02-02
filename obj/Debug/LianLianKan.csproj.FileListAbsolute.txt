@@ -1,0 +1,42 @@
+C:\Users\Administrator\Desktop\LianLianKan\LianLianKan\bin\LianLianKan.dll
+C:\Users\Administrator\Desktop\LianLianKan\LianLianKan\bin\LianLianKan.pdb
+C:\Users\Administrator\Desktop\LianLianKan\LianLianKan\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Administrator\Desktop\LianLianKan\LianLianKan\obj\Debug\LianLianKan.dll
+C:\Users\Administrator\Desktop\LianLianKan\LianLianKan\obj\Debug\LianLianKan.pdb
+C:\Users\Administrator\Desktop\自我修炼\LianLianKan\LianLianKan\bin\LianLianKan.dll
+C:\Users\Administrator\Desktop\自我修炼\LianLianKan\LianLianKan\bin\LianLianKan.pdb
+C:\Users\Administrator\Desktop\自我修炼\LianLianKan\LianLianKan\obj\Debug\LianLianKan.dll
+C:\Users\Administrator\Desktop\自我修炼\LianLianKan\LianLianKan\obj\Debug\LianLianKan.pdb
+E:\自我修炼\LianLianKan\LianLianKan\bin\LianLianKan.dll
+E:\自我修炼\LianLianKan\LianLianKan\bin\LianLianKan.pdb
+E:\自我修炼\LianLianKan\LianLianKan\obj\Debug\ResolveAssemblyReference.cache
+E:\自我修炼\LianLianKan\LianLianKan\obj\Debug\LianLianKan.dll
+E:\自我修炼\LianLianKan\LianLianKan\obj\Debug\LianLianKan.pdb
+C:\Documents and Settings\yang\桌面\自我修炼\LianLianKan\LianLianKan\bin\LianLianKan.dll
+C:\Documents and Settings\yang\桌面\自我修炼\LianLianKan\LianLianKan\bin\LianLianKan.pdb
+C:\Documents and Settings\yang\桌面\自我修炼\LianLianKan\LianLianKan\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\yang\桌面\自我修炼\LianLianKan\LianLianKan\obj\Debug\LianLianKan.dll
+C:\Documents and Settings\yang\桌面\自我修炼\LianLianKan\LianLianKan\obj\Debug\LianLianKan.pdb
+C:\Users\Administrator\Desktop\游戏\自我修炼\LianLianKan\LianLianKan\bin\LianLianKan.dll
+C:\Users\Administrator\Desktop\游戏\自我修炼\LianLianKan\LianLianKan\bin\LianLianKan.pdb
+C:\Users\Administrator\Desktop\游戏\自我修炼\LianLianKan\LianLianKan\obj\Debug\LianLianKan.dll
+C:\Users\Administrator\Desktop\游戏\自我修炼\LianLianKan\LianLianKan\obj\Debug\LianLianKan.pdb
+C:\Documents and Settings\yang\桌面\游戏\自我修炼\LianLianKan\LianLianKan\bin\LianLianKan.dll
+C:\Documents and Settings\yang\桌面\游戏\自我修炼\LianLianKan\LianLianKan\bin\LianLianKan.pdb
+C:\Documents and Settings\yang\桌面\游戏\自我修炼\LianLianKan\LianLianKan\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\yang\桌面\游戏\自我修炼\LianLianKan\LianLianKan\obj\Debug\LianLianKan.dll
+C:\Documents and Settings\yang\桌面\游戏\自我修炼\LianLianKan\LianLianKan\obj\Debug\LianLianKan.pdb
+C:\Users\Administrator\Desktop\游戏1\自我修炼\LianLianKan\LianLianKan\bin\LianLianKan.dll
+C:\Users\Administrator\Desktop\游戏1\自我修炼\LianLianKan\LianLianKan\bin\LianLianKan.pdb
+C:\Users\Administrator\Desktop\游戏1\自我修炼\LianLianKan\LianLianKan\obj\Debug\LianLianKan.dll
+C:\Users\Administrator\Desktop\游戏1\自我修炼\LianLianKan\LianLianKan\obj\Debug\LianLianKan.pdb
+C:\Documents and Settings\yang\桌面\游戏1\自我修炼\LianLianKan\LianLianKan\bin\LianLianKan.dll
+C:\Documents and Settings\yang\桌面\游戏1\自我修炼\LianLianKan\LianLianKan\bin\LianLianKan.pdb
+C:\Documents and Settings\yang\桌面\游戏1\自我修炼\LianLianKan\LianLianKan\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\yang\桌面\游戏1\自我修炼\LianLianKan\LianLianKan\obj\Debug\LianLianKan.dll
+C:\Documents and Settings\yang\桌面\游戏1\自我修炼\LianLianKan\LianLianKan\obj\Debug\LianLianKan.pdb
+C:\Users\Administrator\Desktop\我的游戏\连连看\代码\LianLianKan\LianLianKan\bin\LianLianKan.dll
+C:\Users\Administrator\Desktop\我的游戏\连连看\代码\LianLianKan\LianLianKan\bin\LianLianKan.pdb
+C:\Users\Administrator\Desktop\我的游戏\连连看\代码\LianLianKan\LianLianKan\obj\Debug\LianLianKan.dll
+C:\Users\Administrator\Desktop\我的游戏\连连看\代码\LianLianKan\LianLianKan\obj\Debug\LianLianKan.pdb
+C:\Users\Administrator\Desktop\我的游戏\连连看\代码\LianLianKan\LianLianKan\obj\Debug\LianLianKan.csprojResolveAssemblyReference.cache

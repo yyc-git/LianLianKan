@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>连连看 by YYC</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+
+
+    <script src="SoundManager/soundmanager2-nodebug-jsmin.js" type="text/javascript"></script>
+
+    <!--<link href="参考代码/link2/Skin/QQ/DOTA_All.css" rel="stylesheet" type="text/css" />-->
+
+
+    <!--<link href="Css/lianliankan_index.css" rel="stylesheet" type="text/css" />-->
+
+    <link href="Css/Control/DOTA_All.css" rel="stylesheet" type="text/css" />
+
+    <link href="Css/Control/YYC_Control.css" rel="stylesheet" type="text/css" />
+
+    <script src="jquery-1.7.js" type="text/javascript"></script>
+    <script src="Object_Extend.js" type="text/javascript"></script>
+
+    <script src="Scripts/Control/CheckBox.js" type="text/javascript"></script>
+    <script src="MyBasicOperate.js" type="text/javascript"></script>
+    <script src="MyGameEngine.js" type="text/javascript"></script>
+
+    <script src="Scripts/Control/Drag.js" type="text/javascript"></script>
+<!--[if lte IE 7]> 
+<input type="hidden" id="ie7" value="ie7"/>
+
+<![endif]-->
+<style type="text/css">
+#content{
+	padding:2px;
+}
+#content table{
+	/*border-collapse:collapse;*/
+	background:#6b8bbb;
+}
+#content table td{
+	width:30px; height:34px; 
+	border:1px solid #2B4A84;
+	/*border-bottom:1px solid #2B4A84;
+	border-top:1px solid #2B4A84;
+	border-left:1px solid #2B4A84;
+	border-right:1px solid #2B4A84;*/
+}
+#content table .sett{
+	background:#2980BE;
+}
+</style>
+
+</head>
+
+<body ondragstart="operate.PreventDefault(event);" oncontextmenu="operate.PreventDefault(event);" onselectstart="operate.PreventDefault(event);">
+
+
+<div id="content">
+</div>
+
+<script type="text/javascript">
+//    console.log(window.setTimeout(function () {
+//        console.log("timer");
+//    }), 500);
+
+//    console.log(window.setTimeout(function () {
+//        console.log("timer");
+//    }), 700);
+
+//    console.log(window.setInterval(function () {
+////        console.log("setInterval");
+    //    }), 5000);
+
+
+//    var name = "";
+//    function A() { }
+//    A.prototype.x = 2;
+
+//    var t = new A();
+
+//    console.log(t.x);
+
+//    t.x = 4;
+
+//    console.log(t.x);
+
+//    A.prototype = { constructor: A, x: 10 };
+
+//    for (m in A.prototype) {
+//        console.log(m);
+//    }
+
+//    var m = new A();
+
+//    console.log(m.x);
+
+
+    var html = ["<table border='0'"];
+    var row = 20;
+    var col = 20;
+
+    html.push(new Array(row).join("<tr>" + new Array(col).join("<td style=''></td>") + "</tr>"));
+    html.push("</table>");
+    $("#content").html(html.join(""));
+
+
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+

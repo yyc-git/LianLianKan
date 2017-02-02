@@ -1,0 +1,155 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>挑战Boss</title>
+    <link href="../Css/Control/YYC_Control.css" rel="stylesheet" type="text/css" />
+    <link href="../Css/GameSetting/GameSetting.css" rel="stylesheet" type="text/css" />
+
+    <link href="../Css/window.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<div id="boss_container" class="container">
+<!--	<div id="mapType">
+    	<div id="type">地图模式:
+        	<label class="DOTA_Radio" for="rdoRandom"><input type="radio" id="rdoRandom" name="rdoType" value="1" checked="checked" onclick="ChangeType(1);" />随机地图</label>
+        	<label class="DOTA_Radio" for="rdoLock"><input type="radio" id="rdoLock" name="rdoType" value="2" onclick="ChangeType(2);" />指定地图</label>
+        </div>
+    </div>-->
+    <div id="boss_map" style="">
+    </div>
+    <div id="boss_button" class="window_submit"></div>
+</div>
+
+    <script src="../jquery-1.7.js" type="text/javascript"></script>
+
+    <script src="../Object_Extend.js" type="text/javascript"></script>
+
+    <script src="../MyBasicOperate.js" type="text/javascript"></script>
+    <script src="../MyGameEngine.js" type="text/javascript"></script>
+
+    <script src="../Scripts/Control/Button.js" type="text/javascript"></script>
+    <script src="../Scripts/Control/MyPaging.js" type="text/javascript"></script>
+    <script src="../Scripts/Control/CheckBox.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    (function () {
+        //选择的boss序号
+        var selectIndex = 0;
+
+        function OnClick(e, index, current) {
+            selectIndex = index + 1;
+        }
+
+        var Init = function () {
+            var str_img = "",
+                str_text = "",
+                temp = null,
+                i = 0,
+                len = 0,
+                bossContainer = null,
+                items = [],
+//                index = 0,  //boss序号
+            //                boss_index = 0; //已挑战成功的boss序号。
+            index = "",  //boss序号
+            boss_index = ""; //已挑战成功的boss序号。
+
+            //获得已挑战成功的boss序号
+            boss_index = self.parent.LianLianKan.boss_index;
+//            console.log(boss_index);
+            //获得boss序号
+            //            index = DataSource_Boss.In
+            //boss个数
+            //            len = LianLianKan.boss_num;
+            len = self.parent.SingleBoss.GetNum();
+            bossContainer = self.parent.SingleBoss;
+
+            //头像、说明数据
+            for (i = 0; i < len; i++) {
+                temp = bossContainer.GetInstance(i);
+                //获得boss序号
+                index = temp.index;
+
+                //已经挑战成功了，boss头像为灰色
+                //                if (boss_index >= index) {
+                if (boss_index.toString().contain(index)) {
+                    //修改路径
+                    str_img = "../" + temp.img_gray;
+                }
+                else {
+                    //修改路径
+                    str_img = "../" + temp.img;
+                }
+                str_text = "Boss：" + temp.name + "<br/>--技能说明--<br>" + temp.text;
+                items.push([str_img, str_text]);
+            }
+
+            //每页显示一个
+            page = new YYC.Paging({
+                //                onlyText: true,
+                onlyImg: false,
+                rowCount: 1,
+                rowNum: 1,
+                width: 350,
+                height: 280,
+                show: 2,
+                onClick: OnClick,
+                items: items
+            });
+            page.RenderTo("boss_map");
+
+
+
+            button = new YYC.Button({ text: "确 定",
+                onClick: function (e) {
+                    //                    console.log(selectIndex);
+
+                    if (selectIndex === 0) {
+                        alert("请选择！");
+                        return;
+                    }
+//                    //判断该boss前面的boss是否已挑战成功（可以重复挑战已挑战成功的boss）
+//                    if (selectIndex >= boss_index + 2) {
+//                        alert("您必须按顺序依次挑战Boss！");
+//                        return;
+//                    }
+
+                    //选择boss
+                    //如果玩家得分不满足条件，则不能挑战。
+                    if (self.parent.LianLianKan.Operate_UI.SelectBoss(selectIndex) === false) {
+                        return;
+                    }
+
+
+                    //继续
+                    self.parent.LianLianKan.Operate_UI.Continue();
+
+//                    //跳转到父窗口的锚记（#game_area）
+//                    parent.location.hash = "game_area";
+
+                    //开始挑战
+                    self.parent.LianLianKan.Operate_UI.Start_Boss();
+
+
+                    //关闭窗体
+                    self.parent.LianLianKan.Operate_UI.CloseBoss();
+                }
+            });
+            button.RenderTo("boss_button");
+
+
+
+            //            console.log(page._li.width());
+        }
+
+        //外界访问入口
+        window.Init_ChallengeBoss = Init;
+    } ());
+
+    $(function () {
+        Init_ChallengeBoss();
+    });
+</script>
+</body>
+</html>

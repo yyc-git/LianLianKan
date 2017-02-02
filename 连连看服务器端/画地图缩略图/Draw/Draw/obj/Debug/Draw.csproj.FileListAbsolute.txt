@@ -1,0 +1,15 @@
+C:\Users\Administrator\Desktop\Draw\Draw\bin\Draw.dll
+C:\Users\Administrator\Desktop\Draw\Draw\bin\Draw.pdb
+C:\Users\Administrator\Desktop\Draw\Draw\obj\Debug\Draw.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\Desktop\Draw\Draw\obj\Debug\Draw.dll
+C:\Users\Administrator\Desktop\Draw\Draw\obj\Debug\Draw.pdb
+C:\Documents and Settings\yang\桌面\Draw\Draw\bin\Draw.dll
+C:\Documents and Settings\yang\桌面\Draw\Draw\bin\Draw.pdb
+C:\Documents and Settings\yang\桌面\Draw\Draw\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\yang\桌面\Draw\Draw\obj\Debug\Draw.dll
+C:\Documents and Settings\yang\桌面\Draw\Draw\obj\Debug\Draw.pdb
+C:\Documents and Settings\yang\桌面\自我修炼\连连看服务器端\画地图缩略图\Draw\Draw\bin\Draw.dll
+C:\Documents and Settings\yang\桌面\自我修炼\连连看服务器端\画地图缩略图\Draw\Draw\bin\Draw.pdb
+C:\Documents and Settings\yang\桌面\自我修炼\连连看服务器端\画地图缩略图\Draw\Draw\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\yang\桌面\自我修炼\连连看服务器端\画地图缩略图\Draw\Draw\obj\Debug\Draw.dll
+C:\Documents and Settings\yang\桌面\自我修炼\连连看服务器端\画地图缩略图\Draw\Draw\obj\Debug\Draw.pdb

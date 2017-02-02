@@ -1,0 +1,596 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>选图</title>
+<link rel="stylesheet" type="text/css" href="../Skin/QQ/Option.css"/>
+<link rel="stylesheet" type="text/css" href="../Skin/QQ/DOTA_All.css"/>
+<style type="text/css">
+a{
+	text-decoration:none; color:#fff;
+}
+#container{
+	padding-left:13px; padding-top:6px;
+}
+#mapType{
+	height:30px; overflow:hidden;
+}
+#mapType div{
+	float:left; margin-right:13px;
+}
+#mapType #type{
+	margin-right:60px;
+}
+#mapList{
+	margin-top:4px; 
+}
+#mapList #map li{
+	float:left; width:103px; height:62px; background:#506DA9;
+	border:1px solid #506DA9; padding:1px;
+}
+#mapList #map img{
+	margin-left:3px; margin-top:1px;
+}
+#mapList #page{
+	clear:both; height:22px; line-height:22px; text-align:center;
+}
+#mapList #page a, #mapList #page span{
+	display:inline-block; line-height:16px; padding:2px; padding-left:4px; padding-right:4px; margin-right:5px;
+}
+#mapList #page span b{
+	color:#F8E070;
+}
+#mapList #page a:hover{
+	background:#eee; color:#506DA9;
+}
+#mapList #page .current{
+	font-weight:bold; color:#F8E070;
+}
+#mapList #page .gray{
+	color:#aaa;
+}
+#mapList #page a.gray:hover{
+	background:#506DA9; color:#aaa;
+}
+</style>
+<script type="text/javascript" src="../Scripts/Base.js" charset="utf-8"></script>
+<script type="text/javascript" src="../Scripts/CheckBox.js" charset="utf-8"></script>
+<script type="text/javascript" src="../Scripts/Button.js" charset="utf-8"></script>
+
+    <script src="../MyGameEngine.js" type="text/javascript"></script>
+
+
+<!--        <div id="id_map">
+    	<ul id="list"></ul>
+        <div id="page"></div>
+    </div>-->
+
+<script type="text/javascript">
+//                id: "",     //分页所在的层的id
+//                onlyImg: true,  //是否只有图片
+//                rowCount: 10,   //一行显示的个数
+//                rowNum: 5,  //行数
+//                width: 100, //每项的宽度
+//                height: 100,    //每项的高度
+//                handler: "",     //跳转页数的处理函数的名字
+//                OnClick: function (e, index) { },  //点击每项的事件委托
+//                items: []    //图片和文字的数组（如果onlyImg为true，则该数组只有图片（一维数组）；否则为二维数组）
+//    //列表
+//    var List = MyClass({
+//        Init: function (config) {
+//            this.config = MyGameEngine.Base.ExtendByExist({     //调用ExtendByExist而不是Extend！
+//                onlyImg: true,  //是否只有图片
+//                rowCount: 10,   //一行显示的个数
+//                rowNum: 5,  //行数
+//                width: 100, //每项的宽度
+//                height: 100,    //每项的高度
+//                OnClick: function (e, index) { },  //点击每项的事件委托
+//                items: []    //图片和文字的数组（如果onlyImg为true，则该数组只有图片（一维数组）；否则为二维数组）
+//            }, config || {});
+
+//            this._pageSize = this.config.rowNum * this.config.rowCount;   //每页个数
+//            		this.mapIndex = mapIndex || -1;
+//		this.pageIndex = parseInt((mapIndex - 1) / this.pageSize) + 1;
+
+//            this.current = null;    //当前选中项(div)
+//            this.index = -1;    //当前选中项的序号
+
+//            this._html = this.InitHtml();
+//        },
+//        Private: function () {
+//            _pageSize: 0,
+//            _html: "",
+//            _li: null,
+
+//            _SetStyle: function (rowCount, width) {
+//                var totalWidth = (width + 5) * rowCount;    //总宽度，5为每项间的间距
+//                this.element.css("width", totalWidth);  //设置宽度
+//            }
+//        },
+//        Public: {
+//            config: null,
+//            current: null;
+//            index: -1,
+//            element: null,
+
+//            RenderTo: function (container) {
+//                var e = this.element = $("<div class='yyc_paging_list'></div>");
+//                var ul = $("<ul/>");
+
+//                var listHtml = this._html;
+
+//                this._SetWidth(this.config.rowCount, this.config.width);
+
+//                container = MyGameEngine.Base.$(container);
+
+
+//                container.append(e);
+
+//                e.append(ul);
+
+//                ul.append(listHtml);
+
+//            },
+//            //显示一页的地图（具体图片src和文字在showMap中加入），并为每个图片绑定click事件
+//            InitHtml: function () {
+////            var html = new Array(17).join("<li><img src='' border='0' width='96' height='56'></li>");
+//                var html = null;
+//                var str = "";
+//                var li = null;
+//                var self = this, index = -1;
+
+//                //只有图片
+//                if (this.config.onlyImg){
+//                    //调用格式化函数
+//                    str = MyGameEngine.Base.FormatDelegate("<li><div style='border:1px solid red;'><img src='' border='0' width={0} height={1}/></div></li>", this.config.width, this.config.height);
+////                    html = new Array(this._pageSize + 1).join("<li><div><img src='' border='0' width=/> </div></li>");
+//                }
+//                //有图片和文字
+//                else{
+//                     str = MyGameEngine.Base.FormatDelegate("<li><div style='border:1px solid red;'><img src='' border='0' width={0} height={1}/></div>"
+//                      + "<div style='border:1px solid blue;'><span></span></div></li>", this.config.width, this.config.height);
+//                }
+//                html = new Array(this._pageSize + 1).join(str);
+////                var html = new Array(this._pageSize + 1).join("<li><div></div></li>");
+////                DOTA.$("map").innerHTML = html;
+
+//                li = this._li = html.children("li");
+
+//                for (var i = 0; i < this.li.length; i++) {
+//                    //绑定li点击事件
+//                    (function (i) {
+//                        li[i].onclick = function () {
+//                            index = i + (self.pageIndex - 1) * self.pageSize
+//                            if (self.lockMap && index < self.mapCount) {
+//                                if (self.prevImg) {
+//                                    self.prevImg.style.border = "1px solid #506DA9";
+//                                }
+//                                this.style.border = "1px solid #EED435";
+//                                self.prevImg = this;
+//                                self.mapIndex = index;
+//                            }
+//                        };
+//                    })(i);
+//                    //显示当前选中的地图
+//                    index = i + (self.pageIndex - 1) * self.pageSize;
+//                    if (index == this.mapIndex) {
+//                        imgs[i].style.border = "1px solid #EED435";
+//                        self.prevImg = imgs[i];
+//                    }
+//                }
+//            },
+//            ShowList: function () {
+//            }
+//        }
+//    });
+//    //页码
+//    var Page = MyClass({
+//        Init: function () {
+//        },
+//        Public: {
+//            RenderTo: function (container) {
+//                var e = this.element = $("<div class='yyc_paging_page'></div>");
+
+//                container = MyGameEngine.Base.$(container);
+
+//            }
+//        }
+//    });
+
+    //分页控件
+    //可以设置每项的宽度和高度，并动态设置样式表中外层的宽度（即总宽度）。
+    //OnClick返回当前选中项和选中项的序号。
+    var MyPaging = MyClass({
+        Init: function (config) {
+            var pageIndex = 0;
+
+            this.config = MyGameEngine.Base.Extend({
+                id: "",     //分页所在的层的id
+                onlyImg: true,  //是否只有图片
+                rowCount: 10,   //一行显示的个数
+                rowNum: 5,  //行数
+                width: 100, //每项的宽度
+                height: 100,    //每项的高度
+                handler: "",     //跳转页数的处理函数的名字
+                OnClick: function (e, index, current) { },  //点击每项的事件委托
+                items: []    //图片和文字的数组（如果onlyImg为true，则该数组只有图片（一维数组）；否则为二维数组）
+            }, config || {});
+
+            this.element = document.getElementById(this.config.id);     //最外面的层
+
+            //                                                this.current = null;    //当前选中项(div)
+
+            this.index = -1;    //当前选中项的序号
+
+            this.total = this.config.items.length;    //总个数
+            this.pageSize = this.config.rowNum * this.config.rowCount;   //每页个数
+            this.pageNum = Math.ceil(this.total / this.pageSize);  //总页数
+
+            pageIndex = parseInt((this.index - 1) / this.pageSize) + 1;
+            this.pageIndex = pageIndex < 1 ? 1 : pageIndex;
+
+            //            this.list = new List(config);
+            //            this.page = new Page(config);
+
+
+
+
+
+            this.RenderTo(this.config.id);
+
+
+            //		this.showMap();
+            //		this.showPage();
+        },
+        Private: {
+            _li: null,
+            _prevImg: null,
+            _list: null,
+            _page: null,
+
+            //设置样式
+            _SetStyle: function (className, list, page, rowCount, width) {
+                var totalWidth = (width + 5) * rowCount;    //总宽度，5为每项间的间距
+
+                //设置外层类名
+                document.getElementById(this.config.id).className = className;
+
+                this._list.attr("class", list);
+                this._page.attr("class", page);
+
+                this.element.css("width", totalWidth);  //设置宽度
+            }
+            //            _OnClick: function () {
+            //            }
+        },
+        Public: {
+            element: null,
+            config: null,
+            //            list: null,
+            //            page: null,
+            index: -1,
+            //            current: null,
+            total: 0,
+            pageSize: 0,
+            pageNum: 0,
+            pageIndex: 0,
+
+
+            RenderTo: function (container) {
+                //                                var e = document.createElement("div");
+                var ul = this._list = $("ul");
+                var page = this._page = $("div");
+                var listHtml = this.InitHtml();
+                var pageHtml = this.ShowPage();
+
+                this.ShowList();
+
+                //设置样式
+                this._SetStyle("yyc_paging", "list", "paging", this.config.rowCount, this.config.width);
+
+                container = $(container);
+
+                container.append(ul);
+                container.append(page);
+
+
+
+                ul.append(listHtml);
+                page.append(pageHtml);
+
+                //                this.list.RenderTo(container);  //显示列表
+                //                this.page.RenderTo(container);  //显示页码
+                //                e.className = "DOTA_Menu";
+                //                e.id = this.menuID;
+                //                //加入菜单最外围的层
+                //                container.appendChild(e);
+
+                //                //加入菜单
+                //                this.mainMenu.RenderTo(e);
+            },
+            //搭建一页的框架（具体图片src和文字在ShowList中加入），并为每个图片绑定click事件
+            InitHtml: function () {
+                var html = null;
+                var str = "";
+                var li = null;
+                var self = thi;
+                //                var index = -1;
+
+                //只有图片
+                if (this.config.onlyImg) {
+                    //调用格式化函数
+                    str = MyGameEngine.Base.FormatDelegate("<li><img src='' border='0' width={0} height={1}/></li>", this.config.width, this.config.height);
+                    //                    html = new Array(this._pageSize + 1).join("<li><div><img src='' border='0' width=/> </div></li>");
+                }
+                //有图片和文字
+                else {
+                    str = MyGameEngine.Base.FormatDelegate("<li><img src='' border='0' width={0} height={1} style='display:block;'/>"
+                      + "<span style='display:block;'></span></li>", this.config.width, this.config.height);
+                }
+                html = new Array(this._pageSize + 1).join(str);
+                //                var html = new Array(this._pageSize + 1).join("<li><div></div></li>");
+                //                DOTA.$("map").innerHTML = html;
+
+                li = this._li = html.children("li");
+
+
+
+                for (var i = 0; i < li.length; i++) {
+                    //                function () {
+                    //                            index = i + (self.pageIndex - 1) * self.pageSize;
+                    //                            if (self.lockMap && index < self.mapCount) {
+                    //                                if (self.prevImg) {
+                    //                                    self.prevImg.style.border = "1px solid #506DA9";
+                    //                                }
+                    //                                this.style.border = "1px solid #EED435";
+                    //                                self.prevImg = this;
+                    //                                self.mapIndex = index;
+                    //                            }
+                    //                        };
+                    //绑定li点击事件
+                    (function (i) {
+                        //                    this._OnClick = MyGameEngine.Event.BindEvent(self, self.config.OnClick, i, li[i]);
+                        li[i].onclick = MyGameEngine.Event.BindEvent(self, self.config.OnClick, i, li[i]);
+                        //MyGameEngine.Event.AddEvent(li[i], "click", this._OnClick);
+                    })(i);
+                    //                    //显示当前选中的地图
+                    //                    index = i + (self.pageIndex - 1) * self.pageSize;
+                    //                    if (index == this.mapIndex) {
+                    //                        imgs[i].style.border = "1px solid #EED435";
+                    //                        self.prevImg = imgs[i];
+                    //                    }
+                }
+            },
+            GoPage: function () {
+            },
+            ShowPage: function () {
+                //                this.page.ShowPage();
+                //                var html = [];
+                var str = "";
+                str = MyGameEngine.Base.FormatDelegate("<span>共<b>{0}</b>个 每页显示<b>{1}</b>个 当前第{2}页 共{3}页", this.total, this.pageSize, this.pageIndex, this.pageNum);
+                //                html.push("<span>共 <b>");
+                //                html.push(this.total + "</b> 个 每页显示 <b>" + this.pageSize + "</b> 个");
+                //                html.push(str);
+                //                html.push();
+                if (this.pageIndex == 1) {
+                    str += "<a href='javascript:void(0);' class='gray'>上一页</a>";
+                    //                    html.push("<a href='javascript:void(0);' class='gray'>上一页</a>");
+                } else {
+                    str += MyGameEngine.Base.FormatDelegate("<a href=\"javascript:{0}('prev');void(0);\">上一页</a>", this.config.handler);
+                    //                    html.push("<a href=\"javascript:goPage('prev');void(0);\">上一页</a>");
+                }
+                for (var i = 1; i <= this.pageCount; i++) {
+                    if (i == this.pageIndex) {
+                        str += MyGameEngine.Base.FormatDelegate("<a href='javascript:void(0);' class='current'>{0}</a>", i);
+                        //                        html.push("<a href='javascript:void(0);' class='current'>" + i + "</a>");
+                    } else {
+                        str += MyGameEngine.Base.FormatDelegate("<a href='javascript:{0}({1});void(0);'>{2}</a>", this.config.handler, i, i);
+                        //                        html.push("<a href='javascript:goPage(" + i + ");void(0);'>" + i + "</a>");
+                    }
+                }
+                if (this.pageIndex == this.pageCount) {
+                    //                    html.push("<a href='javascript:void(0);' class='gray'>下一页</a");
+                    str += "<a href='javascript:void(0);' class='gray'>下一页</a";
+                } else {
+                    //                    html.push("<a href=\"javascript:goPage('next');void(0);\">下一页</a>");
+                    str += MyGameEngine.Base.FormatDelegate("<a href=\"javascript:{0}('next');void(0);\">下一页</a>", this.config, handler);
+                }
+                //                DOTA.$("page").innerHTML = html.join("");
+                return str;
+            },
+            ShowList: function () {
+                //                this.list.ShowList();
+                //start到end中的图片序号为该页的图片序号
+                var i, n, imgs = this._li.find("img"),
+                //            span = this._li.find("span"),
+                    start = (this.pageIndex - 1) * this.pageSize,
+                //			        map = this.map,
+                    end = Math.min(start + this.pageSize, this.total);
+
+                for (i = start, n = 0; i < end; i++, n++) {
+                    //			imgs[n].src = "../Images/Map/Map" + map[i].id + ".gif";
+                    if (this.config.onlyImg) {
+                        imgs.eq(n).attr("src", this.config.items[i]);
+                    }
+                    else {
+                        imgs.eq(n).attr("src", this.config.items[i][0]);
+                        imgs.eq(n).next().text(this.config.items[i][1]);
+                    }
+                }
+                //        //如果图片未显示满一页（即最后一页，则剩余图片为null.gif）
+                //		for(; n < this.pageSize; n++){
+                //			imgs[n].src = "../Images/Map/null.gif";
+                //		}
+            },
+            Dispose: function () {
+            }
+        }
+    });
+
+var MapList = {
+	init : function(lockMap, mapIndex){
+		this.map = parent.getMap();
+		this.pageSize = 16;
+		this.mapCount = this.map.length;    //总的地图个数
+		this.pageCount = parseInt((this.mapCount - 1) / this.pageSize) + 1;
+		this.prevImg = null;
+		this.lockMap = lockMap || false;
+		this.mapIndex = mapIndex || -1;
+		this.pageIndex = parseInt((mapIndex - 1) / this.pageSize) + 1;
+		
+		this.initHtml();
+		this.showMap();
+		this.showPage();
+},
+    //显示一页的地图（具体图片src在showMap中加入），并为每个图片绑定click事件
+	initHtml : function(){
+		var html = new Array(17).join("<li><img src='' border='0' width='96' height='56'></li>");
+		DOTA.$("map").innerHTML = html;
+		
+		this.imgs = DOTA.$("map").getElementsByTagName("img");
+		var self = this, imgs = DOTA.$("map").getElementsByTagName("li"), index;
+		for(var i = 0; i < this.imgs.length; i++){
+			(function(i){
+				imgs[i].onclick = function(){
+					index = i + (self.pageIndex - 1) * self.pageSize
+					if(self.lockMap && index < self.mapCount){
+						if(self.prevImg){
+							self.prevImg.style.border = "1px solid #506DA9";
+						}
+						this.style.border = "1px solid #EED435";
+						self.prevImg = this;
+						self.mapIndex = index;
+					}
+				};
+})(i);
+            //显示当前选中的地图
+			index = i + (self.pageIndex - 1) * self.pageSize;
+			if(index  == this.mapIndex){
+				imgs[i].style.border = "1px solid #EED435";
+				self.prevImg = imgs[i];
+			}
+		}
+},
+    //显示页数、下一页等
+	showPage : function(){
+		var html = [];
+		html.push("<span>共 <b>");
+		html.push(this.mapCount + "</b> 个 每页显示 <b>" + this.pageSize + "</b> 个</span>");
+		if(this.pageIndex == 1){
+			html.push("<a href='javascript:void(0);' class='gray'>上一页</a>");
+		}else{
+			html.push("<a href=\"javascript:goPage('prev');void(0);\">上一页</a>");
+		}
+		for(var i = 1; i <= this.pageCount; i++){
+			if(i == this.pageIndex){
+				html.push("<a href='javascript:void(0);' class='current'>" + i + "</a>");
+			}else{
+				html.push("<a href='javascript:goPage(" + i + ");void(0);'>" + i + "</a>");
+			}
+		}
+		if(this.pageIndex == this.pageCount){
+			html.push("<a href='javascript:void(0);' class='gray'>下一页</a");
+		}else{
+			html.push("<a href=\"javascript:goPage('next');void(0);\">下一页</a>");
+		}
+		DOTA.$("page").innerHTML = html.join("");
+},
+    //跳转到指定页数，并刷新（显示）该页的地图图片和页码
+	goPage : function(page){
+		switch(page){
+			case "prev":
+				this.pageIndex = this.pageIndex > 1 ? this.pageIndex - 1 : 1;
+				break;
+			case "next":
+				this.pageIndex = this.pageIndex < this.pageCount ? this.pageIndex + 1 : this.pageCount;
+				break;
+			default:
+				if(page >= 1 && page <= this.pageCount){
+					this.pageIndex = page;
+				}
+				break;
+		}
+		this.showMap();
+		this.showPage();
+	},
+showMap: function () {
+        //start到end中的图片序号为该页的图片序号
+		var i, n, imgs = this.imgs, start = (this.pageIndex - 1) * this.pageSize, 
+			 map = this.map, end = Math.min(start + this.pageSize, this.mapCount);
+		for(i = start, n = 0; i < end ; i++, n++){
+			imgs[n].src = "../Images/Map/Map" + map[i].id + ".gif";
+
+}
+        //如果图片未显示满一页（即最后一页，则剩余图片为null.gif）
+		for(; n < this.pageSize; n++){
+			imgs[n].src = "../Images/Map/null.gif";
+		}
+	},
+	dispose : function(){
+	}
+};
+function changeType(n){
+	if(n == 1){
+		DOTA.$("mapList").style.display = "none";
+		MapList.lockMap = false;
+	}else{
+		DOTA.$("mapList").style.display = "";
+		MapList.lockMap = true;
+	}
+}
+function goPage(page){
+	MapList.goPage(page);
+}
+//        getMapMode: function () {
+//            return { lockMap: this.lockMap, mapIndex: this.mapIndex };
+//        },
+
+
+
+window.onload = function(){
+    var mode = parent.getMapMode(); //调用父窗口中的getMapMode方法
+    //lockMap=false表示使用随机地图，=true表示使用指定地图
+	if(mode.lockMap){   
+		DOTA.$("rdoLock").checked = true;
+		DOTA.$("mapList").style.display = "";
+	}else{
+		DOTA.$("rdoRandom").checked = true;
+		DOTA.$("mapList").style.display = "none";
+	}
+	new DOTA.CheckBox({contentEl: "mapType"});
+	new DOTA.Button({text: "确 定", onClick : function(){
+			if(DOTA.$("rdoRandom").checked){
+				parent.setMapMode([false, -1]);
+			}else{
+				if(MapList.mapIndex == -1){
+					alert("请选择地图!");
+					return;
+				}
+				parent.setMapMode({lockMap: true, mapIndex: MapList.mapIndex});
+			}
+		}}).renderTo(DOTA.$("button"));
+	new DOTA.Button({text: "取 消", onClick : function(){
+			parent.closeDialog();
+		}}).renderTo(DOTA.$("button"));
+	
+	MapList.init(mode.lockMap, mode.mapIndex);
+};
+</script>
+</head>
+
+<body>
+<div id="container">
+	<div id="mapType">
+    	<div id="type">地图模式:
+        	<label class="DOTA_Radio" for="rdoRandom"><input type="radio" id="rdoRandom" name="rdoType" value="1" onclick="changeType(1)" />随机地图</label>
+        	<label class="DOTA_Radio" for="rdoLock"><input type="radio" id="rdoLock" name="rdoType" value="1" onclick="changeType(2)" />指定地图</label>
+        </div>
+        <div id="button"></div>
+    </div>
+    <div id="mapList">
+    	<ul id="map"></ul>
+        <div id="page"></div>
+    </div>
+</div>
+</body>
+</html>

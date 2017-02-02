@@ -1,0 +1,300 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>连连看 by YYC</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+
+
+    <script src="SoundManager/soundmanager2-nodebug-jsmin.js" type="text/javascript"></script>
+
+    <!--<link href="参考代码/link2/Skin/QQ/DOTA_All.css" rel="stylesheet" type="text/css" />-->
+
+
+    <!--<link href="Css/lianliankan_index.css" rel="stylesheet" type="text/css" />-->
+
+    <link href="Css/Control/DOTA_All.css" rel="stylesheet" type="text/css" />
+
+    <link href="Css/Control/YYC_Control.css" rel="stylesheet" type="text/css" />
+
+    <script src="jquery-1.7.js" type="text/javascript"></script>
+    <script src="Object_Extend.js" type="text/javascript"></script>
+
+    <script src="Scripts/Control/CheckBox.js" type="text/javascript"></script>
+    <script src="MyBasicOperate.js" type="text/javascript"></script>
+    <script src="MyGameEngine.js" type="text/javascript"></script>
+
+    <script src="Scripts/Control/Drag.js" type="text/javascript"></script>
+<!--[if lte IE 7]> 
+<input type="hidden" id="ie7" value="ie7"/>
+
+<![endif]-->
+
+
+</head>
+
+<body ondragstart="operate.PreventDefault(event);" oncontextmenu="operate.PreventDefault(event);" onselectstart="operate.PreventDefault(event);">
+    <!--<link href="Css/lianliankan_index.css" rel="stylesheet" type="text/css" />-->
+
+    
+
+<!--<div id="test" style="border:10px solid red;height:200px;width:200px;">
+    &nbsp;
+
+    <div style="width:50px;height:50px;border:1px solid red;position: absolute;z-index:10;"><img style="position: absolute;z-index:10;" src="Image/row.jpg"/></div>
+    <div style="width:50px;height:50px;border:1px solid blue;position:absolute;z-index:11;left:-10px;"><img style="position: absolute;left:10px;" src="Image/col.jpg"/></div>
+</div>
+
+<div id="test_2" style="position:relative;border:10px solid blue;height:35px;width:50px;overflow:hidden;">
+    &nbsp;
+    <input type="button" id="test_button" onclick="Test_Button(event);"/>
+</div>
+
+<div id="test_3" style="border:10px solid blue;height:200px;width:200px;">
+</div>-->
+
+<!--<input type="radio" id="radio_1" name="ra"/>
+<input type="radio" id="radio_2" name="ra" />-->
+
+
+<div class="a" id="test_div" style="width:400px;height:400px;border:1px solid red;"></div>
+<div class="a" id="Div1" style="width:400px;height:400px;border:1px solid red;"></div>
+
+
+<!--
+<div id="mapType1">
+<label class="DOTA_CheckBox" for="rdoRandom1">
+<input type="checkbox" id="rdoRandom1" value="1" checked="checked" />随机地图
+</label>
+</div>
+
+<script type="text/javascript">
+    new YYC.CheckBox({ content: "mapType1" });
+</script>
+<div id="mapType">
+<label class="DOTA_Radio" for="rdoRandom">
+<input type="radio" id="rdoRandom" name="rdoType" value="1"  checked="checked" />随机地图
+</label>
+<label class="DOTA_Radio" for="rdoRandom2">
+<input type="radio" id="rdoRandom2" name="rdoType" value="1"  />随机地图
+</label>
+</div>-->
+<!--<script type="text/javascript">
+    new YYC.CheckBox({ content: "mapType" });
+</script>-->
+
+
+<div style="border:1px solid red;height:50px;width:50px;" id="aa">
+<div style="border:1px solid red;height:20px;width:50px;" id="bb">
+&nbsp;
+</div>
+&nbsp;
+</div>
+<script type="text/javascript">
+    //    new YYC.Drag("aa", { handler: "bb", cancelBubble: false });
+
+
+//    var arr = [1, 2, 3];
+//    arr.pushNoRepeat(1);
+//    arr.pushNoRepeat(4);
+////    arr.push([);
+    //    console.log(arr.length, arr);
+
+//    var arr = [1];
+
+//    var m = [100, arr];
+
+
+
+//    var t = Array.prototype.slice.call(m, 1)[0]
+
+//    t.push(3);
+//    console.log(arr, t); 
+//    function A(arr) {
+//        arr.push(2);
+//    }
+
+//    var func = MyGameEngine.Event.BindWithArguments(this, A, arr);
+//    func();
+
+//    console.log(arr);
+
+</script>
+<input type="button" value="取消事件绑定" onclick="B();" />
+
+    <script src="Scripts/Control/CheckBox.js" type="text/javascript"></script>
+
+<!--<div id="mapType">
+<label class="DOTA_Radio" for="rdoRandom">
+<input type="radio" id="rdoRandom" name="rdoType" value="1" onclick="" />随机地图
+</label>
+<label class="DOTA_Radio" for="rdoLock"><input type="radio" id="rdoLock" name="rdoType" value="1" onclick=""/>指定地图</label>
+
+<label class="DOTA_CheckBox" for="Radio1"><input type="checkbox" id="Radio1" value="1" onclick=""/>指定地图</label>
+<label class="DOTA_CheckBox" for="Radio2"><input type="checkbox" id="Radio2" value="1" onclick=""/>指定地图</label>
+</div>-->
+
+<!--<div id="yyc_map" >
+</div>
+<div id="yyc_map_2" >
+</div>-->
+<!--    <img src="Image/Map/Map1.gif" />-->
+<!--<img src='Image/clue_col.jpg' border='0' width='96' height='56'>-->
+<!--<div id="menuContainer"></div>-->
+    <!--<link href="Css/Control/DOTA_All.css" rel="stylesheet" type="text/css" />-->
+
+
+    <script src="Scripts/Control/Button.js" type="text/javascript"></script>
+
+
+
+    <script src="Scripts/Control/Drag.js" type="text/javascript"></script>
+    <script src="Scripts/Control/Menu.js" type="text/javascript"></script>
+
+    <script src="Scripts/Control/Window.js" type="text/javascript"></script>
+
+        <script src="Scripts/Control/ToolBar.js" type="text/javascript"></script>
+
+    <script src="Scripts/OperateCheckbox.js" type="text/javascript"></script>
+
+    <script src="Scripts/Control/MyPaging.js" type="text/javascript"></script>
+
+
+
+    <script src="jquery-1.7.js" type="text/javascript"></script>
+    <script src="Scripts/LianLianKan/Global.js" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+
+//    var parent = MyClass({
+//        Private: {
+//            _Say: function () {
+//                console.log("pa!");
+//            }
+//        },
+//        Public: {
+//            Say: function () {
+//                this._Say();
+//            }
+//        }
+//    });
+
+//    var sub = MyClass(parent, {
+//        Private: {
+//            __Say_Sub: function () {
+//                console.log("sub!");
+//            }
+//        },
+//        Public: {
+//            Say: function () {
+//                console.log("public!");
+//                this.__Say_Sub();
+//                this.base();
+//                                this._Say();
+//            }
+//        }
+//    });
+
+//    var _su = new sub();
+//    _su.Say();
+
+//    function Handler() {
+//        console.log("mousedown!");
+//    }
+
+//    function A() {
+//               
+//        //        $("#test_div").bind("mousedown", null, Handler);
+//        this._Handle = MyGameEngine.Event.BindEvent(this, this.Handler);
+
+//                MyGameEngine.Event.AddEvent($("div.a"), "mousedown", this._Handle);
+
+
+////        MyGameEngine.Event.AddEvent(document.getElementById("test_div"), "mousedown", this._Handle);
+
+
+
+////        $("#test_div").bind("mousedown", this._Handle);
+
+
+////        DOTA.Event.addEvent(document.getElementById("test_div"), "mousedown", this._Handle);
+//    }
+//    function B() {
+//        console.log("cancle");
+
+//        //        DOTA.Event.removeEvent(document.getElementById("test_div"), "mousedown", this._Handle);
+
+////        $("#test_div").unbind("mousedown", this._Handle);
+
+////        var dom = $("#test_div")[0];
+////        console.log(dom.detachEvent);
+////        dom.detachEvent("onmousedown", this._Handle);
+
+
+//        MyGameEngine.Event.RemoveEvent($("#test_div"), "mousedown", this._Handle);
+//        //        $("#test_div").unbind("mousedown", Handler);
+
+
+//    }
+//        A();
+
+//    function F() {
+//        this.Say = function () {
+//            console.log("F.Say()");
+//        };
+//    }
+
+//    function A() {
+//        this.Shout = function () {
+//            console.log("A");
+//        };
+//    }
+
+//    A.prototype = F.prototype;
+
+//    F.prototype.M = function(){
+//        console.log("F.M");
+//    };
+
+//    var t = new A();
+
+//    t.M();
+
+//    F.prototype.K = function () {
+//        console.log("K");
+//    };
+
+//    A.prototype.H = function () {
+//        console.log("A.H");
+//    };
+//    t.K();
+    //    t.H();
+
+
+
+    //    alert(7/4);
+
+//    function F(a, b) {
+//        console.log(a);
+//    }
+
+
+//    function A(a, b) {
+//        F.apply(this, [[1, 2]]);
+//    }
+
+//    A();
+
+</script>
+
+
+</body>
+</html>
+
+
+
+
+
+
+

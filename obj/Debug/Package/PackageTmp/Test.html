@@ -1,0 +1,1125 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>连连看 by YYC</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+
+
+    <script src="SoundManager/soundmanager2-nodebug-jsmin.js" type="text/javascript"></script>
+
+    <!--<link href="参考代码/link2/Skin/QQ/DOTA_All.css" rel="stylesheet" type="text/css" />-->
+
+
+    <!--<link href="Css/lianliankan_index.css" rel="stylesheet" type="text/css" />-->
+
+    <link href="Css/Control/DOTA_All.css" rel="stylesheet" type="text/css" />
+
+    <link href="Css/Control/YYC_Control.css" rel="stylesheet" type="text/css" />
+
+
+    <script src="Object_Extend.js" type="text/javascript"></script>
+
+
+    <script src="MyBasicOperate.js" type="text/javascript"></script>
+    <script src="MyGameEngine.js" type="text/javascript"></script>
+
+
+<!--[if lte IE 7]> 
+<input type="hidden" id="ie7" value="ie7"/>
+
+<![endif]-->
+
+
+</head>
+
+<body ondragstart="operate.PreventDefault(event);" oncontextmenu="operate.PreventDefault(event);" onselectstart="operate.PreventDefault(event);">
+    <!--<link href="Css/lianliankan_index.css" rel="stylesheet" type="text/css" />-->
+
+    
+
+<!--<div id="test" style="border:10px solid red;height:200px;width:200px;">
+    &nbsp;
+
+    <div style="width:50px;height:50px;border:1px solid red;position: absolute;z-index:10;"><img style="position: absolute;z-index:10;" src="Image/row.jpg"/></div>
+    <div style="width:50px;height:50px;border:1px solid blue;position:absolute;z-index:11;left:-10px;"><img style="position: absolute;left:10px;" src="Image/col.jpg"/></div>
+</div>
+
+<div id="test_2" style="position:relative;border:10px solid blue;height:35px;width:50px;overflow:hidden;">
+    &nbsp;
+    <input type="button" id="test_button" onclick="Test_Button(event);"/>
+</div>
+
+<div id="test_3" style="border:10px solid blue;height:200px;width:200px;">
+</div>-->
+
+<!--<input type="radio" id="radio_1" name="ra"/>
+<input type="radio" id="radio_2" name="ra" />-->
+
+
+    <script src="Scripts/Control/CheckBox.js" type="text/javascript"></script>
+
+<!--<div id="mapType">
+<label class="DOTA_Radio" for="rdoRandom">
+<input type="radio" id="rdoRandom" name="rdoType" value="1" onclick="" />随机地图
+</label>
+<label class="DOTA_Radio" for="rdoLock"><input type="radio" id="rdoLock" name="rdoType" value="1" onclick=""/>指定地图</label>
+
+<label class="DOTA_CheckBox" for="Radio1"><input type="checkbox" id="Radio1" value="1" onclick=""/>指定地图</label>
+<label class="DOTA_CheckBox" for="Radio2"><input type="checkbox" id="Radio2" value="1" onclick=""/>指定地图</label>
+</div>-->
+
+<!--<div id="yyc_map" >
+</div>
+<div id="yyc_map_2" >
+</div>-->
+
+
+<div style="border:1px solid blue;position: relative; left: 0px; top: 0px;">
+    <div id="progressBar_img_show_percentImage" title="0%" style="border:1px solid red;width: 300px; height: 400px; position: relative; left: 0px; top: 0px; z-index: 10;padding: 0px; margin: 0px;"></div>
+    <div style="border:1px solid black;width: 300px; height: 400px; position: absolute; left: 10px; top: 300px; z-index: 11;padding: 0px; margin: 0px;"></div>
+</div>
+
+<!--    <img src="Image/Map/Map1.gif" />-->
+<!--<img src='Image/clue_col.jpg' border='0' width='96' height='56'>-->
+<!--<div id="menuContainer"></div>-->
+    <!--<link href="Css/Control/DOTA_All.css" rel="stylesheet" type="text/css" />-->
+
+
+    <script src="Scripts/Control/Button.js" type="text/javascript"></script>
+
+
+
+    <script src="Scripts/Control/Drag.js" type="text/javascript"></script>
+    <script src="Scripts/Control/Menu.js" type="text/javascript"></script>
+
+    <script src="Scripts/Control/Window.js" type="text/javascript"></script>
+
+        <script src="Scripts/Control/ToolBar.js" type="text/javascript"></script>
+
+    <script src="Scripts/OperateCheckbox.js" type="text/javascript"></script>
+
+    <script src="Scripts/Control/MyPaging.js" type="text/javascript"></script>
+
+
+<!--<div id="custom_map">
+</div>-->
+
+    <script src="jquery-1.7.js" type="text/javascript"></script>
+    <script src="Scripts/LianLianKan/Global.js" type="text/javascript"></script>
+
+
+<!--<script type="text/javascript">
+
+
+    var i = 1;
+    var str_img = "", str_text = "", temp = null;
+    var items = [];
+    for (i = 1; i < 20; i++) {
+        str_img = "Image/clue_col.jpg";
+        str_text = "图片1111111111啊啊啊啊啊啊啊啊啊啊啊啊" + i.toString();
+        temp = [str_img, str_text];
+        items.push(temp);
+    }
+    //第一个
+    var page = new YYC.Paging({
+        onlyImg: false,
+        rowCount: 2,
+        rowNum: 1,
+        width: 100,
+        height: 50,
+        show: 5,
+        items: items
+    });
+
+    page.RenderTo("yyc_map");
+
+
+//            var dlg = new YYC.Window({
+//                title: "用户自定义地图",
+//                isShow: false,
+//                isClear: true,
+//                opacity: 0.4,
+////                url: "Scripts/About.html",
+//                id: "iframe_window"
+//            });
+//            dlg.SetTitle("用户信息设置");
+////            setTimeout(function () { dlg.LoadUrl("Scripts/About.html"); }, 2000);
+//            dlg.LoadUrl("Scripts/About.html");
+//            dlg.ResizeTo(700, 500);
+//            
+
+//            function CloseDialog() {
+//            this.dlg.Dispose();
+//            this.Pause();
+//        };
+
+//        function Pause() {
+//        };
+
+
+//    MyGameEngine.Event.AddEvent(document, "mousedown", MyGameEngine.Event.BindEvent(this, function (event) {
+//        alert("event.button" + event.mouseButton);
+//    }));
+
+
+</script>-->
+
+
+
+
+
+
+
+
+<!--    <script type="text/javascript">
+//        new YYC.CheckBox({ contentEl: "mapType" });
+</script>-->
+
+
+
+
+
+<!--<script type="text/javascript">
+//    this.config = MyGameEngine.Base.Extend({
+//        id: "",     //分页所在的层的id
+//        onlyImg: true,  //是否只有图片
+//        rowCount: 10,   //一行显示的个数
+//        rowNum: 5,  //行数
+//        width: 100, //每项的宽度
+//        height: 100,    //每项的高度
+//        GoPage: "",     //跳转页数的处理函数的名字
+//        OnClick: function (e, index, current) { },  //点击每项的事件委托
+//        items: []    //图片和文字的数组（如果onlyImg为true，则该数组只有图片（一维数组）；否则为二维数组）
+//    }, config || {});
+var i = 1;
+var str_img = "", str_text = "", temp = null;
+var items = [];
+for (i = 1; i < 20; i++){
+    str_img = "Image/clue_col.jpg";
+    str_text = "图片1111111111啊啊啊啊啊啊啊啊啊啊啊啊" + i.toString();
+    temp = [str_img, str_text];
+    items.push(temp);
+}
+
+    var page = new MyPaging({
+//        id: "yyc_map",
+        onlyImg: false,
+    rowCount: 5,
+    rowNum: 2,
+    width: 100,
+    height: 100,
+    show: 5,
+//    GoPage: "GoPage",
+    OnClick: OnClick,
+    items: items
+}).RenderTo("yyc_map");
+
+function OnClick(e, index, current) {
+//    console.log(e);
+//    console.log("click");
+//    console.log(index);
+//    console.log(current);
+//    $(current).css("border", "10px  solid #EED435");
+//    console.log(page.pageIndex);
+//    console.log(this.pageIndex);
+}
+
+//var page_2 = new MyPaging({
+//    id: "yyc_map_2",
+//    onlyImg: false,
+//    rowCount: 1,
+//    rowNum: 1,
+//    show: 1,
+//    width: 100,
+//    height: 50,
+//    Jump: Jump_2,
+//    GoPage: "GoPage_2",
+//    OnClick: OnClick,
+//    items: items
+//});
+//page_2.RenderTo("yyc_map_2");
+//function GoPage_2(_page) {
+//    //    console.log(_page);
+//    page_2.GoPage(_page);
+//}
+//function Jump_2(e, value) {
+//    page_2.Jump(e, value);
+//}
+</script>-->
+
+
+<!--<script type="text/javascript">
+//    function Test_Button(e) {
+//        MyGameEngne.Event.WrapEvent(e);
+//        console.log(e.type);
+//        console.log(e.offsetLeft);
+//        console.log(e.offsetTop);
+//        console.log(e.positionTop);
+//        console.log(e.target);
+    //    };
+//    $("#radio_2").attr("checked", true);
+
+//    $("#radio_2").click();
+
+//    console.log(myCheckbox.IsCheck("rdoRandom"));
+//    console.log(myCheckbox.IsCheck("rdoLock"));
+
+//    function B() {
+//        alert("B!");
+//    }
+
+//function A(fn){
+//    //    alert("A!");
+//    fn();
+//    alert(arguments[2]);
+//};
+
+//var a = "aa", b = "cc";
+//console.log(MyGameEngine.Base.FormatDelegate("<input type='button' onclick='A({0});'/>", B));
+
+////    test_3
+//var a = "aa", b = "cc";
+//var c = 1;
+////    var html = [];
+////    html.push("<input type='button' onclick='{0}'/>");
+//    //    var str = operate.Format("<input type='button' onclick='A();'/>", A);
+////    var str = "<input type='button' onclick='A();'/>";
+////    console.log(str);
+//    $("#test_3").html(MyGameEngine.Base.FormatDelegate("<input type='button' onclick='A({0}, \"{1}\", {2});'/>", B, "zzzzzzz", c));
+////    console.log(operate.Format("{0} is {1}", a, b));
+
+
+
+//    var str = "asdasdsa1234@163.com";
+//    var reg = "^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\\.([a-zA-Z0-9_-])+)+$";
+
+//    console.log("regex " + reg.test(str));
+
+
+
+
+
+getMapMode = function () {
+            return { lockMap: this.lockMap, mapIndex: this.mapIndex };
+        };
+        setMapMode = function (mode) {
+            this.lockMap = mode.lockMap
+            this.mapIndex = mode.mapIndex;
+        };
+        closeDialog = function () {
+            this.dlg.hide();
+            this.pause();
+        };
+
+    window.onload = function () {
+        window.menu = new YYC.MENU.Menu({ id: "menuContainer", items: [
+		{
+		    text: '文件(F)',
+		    menu: {
+		        items: [
+					{
+					    text: '新建',
+					    //					    hotKey: 'Ctrl + D',
+					    handler: MyGameEngine.Event.BindEvent(window, onMenuClick, 'testArg'),
+					    menu: { items: [
+										  { text: '新建文本文件' },
+										  { text: '新建网页文件' },
+										  { text: '新建...',
+										      menu: { items: [{
+										          text: '三级菜单', menu: { items: [
+                                                { text: '四极菜单' }
+                                              ]
+										          }
+										      }
+                                              ]
+										      }
+										  }
+                                          ]
+					    }
+					}, {
+					    text: '打开　　　　Ctrl + O', handler: onMenuClick, checked: true
+					}, '-', {
+					    text: '退出', handler: onMenuClick
+					}
+				]
+		    }
+		}, {
+		    text: '编辑(E)',
+		    menu: {
+		        items: [
+					{ text: '复制　　　　Ctrl + C', handler: onMenuClick },
+					{ text: '剪切', handler: removeHandler }
+				]
+		    }
+		}, {
+		    text: '帮助(H)',
+		    menu: {
+		        items: [
+					 { text: '关于　　　　F1', handler: exitMenu }
+				]
+		    }
+		}
+		]
+        });
+
+//                menu.RenderTo("menuContainer");
+
+
+        //按钮
+new YYC.Button({
+            id: "test_3",
+            OnClick: function (e) {
+                console.log(e.target);
+                console.log("click!");
+                //                self.exit();
+            }
+        });
+
+
+//        var dlg = new YYC.Window({
+//            title: "标题",
+//            isShow: false,
+//            isClear: false,
+//            opacity: 0.4,
+//            id: "iframe_window"
+//        });
+//        dlg.SetTitle("用户信息设置");
+//        dlg.LoadUrl("Scripts/SelectMap.html");
+//        dlg.ResizeTo(300, 200);
+//        dlg.Show();
+
+
+//        dlg.AddToolBar({ menu: menu });
+//        dlg.AddToolBar({ menu: menu });
+//        //                showDialog: function (type) {
+//        //                    var dlg = this.dlg;
+//        //                    switch (type.toLowerCase()) {
+//        //                        case "userinfo":
+//        //                            dlg.setTitle("用户信息设置");
+//        //                            dlg.loadUrl("member/user.html");
+//        //                            dlg.resizeTo(300, 200);
+//        //                            dlg.show();
+//        //                            break;
+
+//        console.log($("#test_3") instanceof jQuery);
+
+    };
+    
+function onMenuClick(){
+	//alert(1);
+}
+function exitMenu(){
+	window.menu.dispose();
+	document.close();
+}
+function rs(msg){
+	var txt = document.getElementById("txt");
+	txt.value += msg + "\n";
+}
+function removeHandler() {
+    var o = window.menu.mainMenu.menus;
+    var e = window.menu.mainMenu.events;
+    var evt = DOTA.Event;
+
+    for (i = 0; i < e.length; i++) {
+        evt.removeEvent(o[i].element, "mouseover", e[i].onmouseover);
+        evt.removeEvent(o[i].element, "mouseout", e[i].onmouseout);
+        evt.removeEvent(o[i].element, "click", e[i].onclick);
+    }
+}
+
+$(function () {
+//    alert($("#test_3") == $("#test_3"));
+//    alert(document.getElementById("test_2") === document.getElementById("test_3"));
+    ////        function A() {
+    ////        };
+
+
+    ////        function B() {
+    ////        };
+
+    ////        var instance = [];
+
+    ////        var type = A;
+
+    ////        instance.push(new type());
+
+    ////        var a = new A();
+
+
+
+    ////        console.log(instance[0] instanceof B);
+
+    ////        instance.push(new B());
+
+    //        //*操纵类
+    //        var Operate = MyAbstract({
+    //            //        Virtual: {
+    //            //            GameOver: function (type) {
+    //            //                LianLianKan.gameStatus = LianLianKan.Status.Wait;
+
+    //            //                switch (type) {
+    //            //                    case "win": //win
+    //            //                        //                    alert("你赢了！");
+    //            //                        this.ShowInfo("你赢了！");
+    //            //                        //                  
+    //            //                        //                                msg.className = "win";
+    //            //                        //                                score = gameInfo.count * 2 - gameInfo.time;
+    //            //                        //                                score += proInfo.reset * 8 + proInfo.compass * 4;
+    //            //                        //                                score += gameInfo.maxCombo * 3;
+    //            //                        break;
+    //            //                    case "lose": //lose
+    //            //                        //                    alert("你输了！");
+    //            //                        this.ShowInfo("你输了！");
+    //            //                        //                                msg.className = "lose";
+    //            //                        //                                score = -gameInfo.leftBox - parseInt(gameInfo.time / 2);
+    //            //                        //                                score = score - (3 - proInfo.reset) * 8 - (3 - proInfo.compass) * 4;
+    //            //                        //                                score += gameInfo.maxCombo * 3;
+    //            //                        break;
+    //            //                }
+    //            //            }
+    //            //        },
+    //            Abstract: {
+    //                Reset: function () {
+    //                },
+    //                Start: function () {
+    //                },
+    //                RefreshMapInfo: function () {
+    //                },
+    //                ShowInfo: function () {
+    //                },
+    //                Use: function () {
+    //                },
+    //                GameOver: function (type) {
+    //                },
+    //                GetPlayer: function () {
+    //                },
+    //                //获得地图对象，并创建算法对象
+    //                SetMap: function (map) {
+    //                },
+    //                //清除计时器
+    //                ClearTimer: function () {
+    //                },
+    //                //获得操作类实例
+    //                SetOperate: function (operate) {
+    //                }
+    //            }
+    //        });
+    //        //    //*操纵类接口
+    //        //    var Interface_Operate = MyInterface([
+    //        //    "Reset",    //重置
+    //        //    "Start",    //开始游戏
+    //        //    "RefreshMapInfo",   //更新地图信息
+    //        //    "GameOver",     //游戏结束
+    //        //    "ShowInfo",     //显示信息
+    //        //    "Use",   //使用道具/技能
+    //        //    "GetPlayer"     //获得玩家对象
+    //        //    ]);
+
+
+
+
+    //        //*子类
+
+    //        //Boss操纵类
+
+
+    //        //    //玩家操作类接口（继承操纵类接口）
+    //        //    var Interface_Game_Operate = MyInterface({ Interface: Interface_Operate }, [
+    //        //        "Mousedown",    //点击方块
+    //        //        "AddTimeLine",   //计时器增加
+    //        //        "DoubleHit"     //判断是否为连击
+    //        //    ]);
+
+    //        //    //玩家操作类接口
+    //        //    var Interface_Game_Operate = MyInterface([
+    //        //        "Mousedown",    //点击方块
+    //        //        "AddTimeLine",   //计时器增加
+    //        //        "DoubleHit"     //判断是否为连击
+    //        //    ]);
+
+    //        //    //Boss操作类接口
+    //        //    var Interface_Boss_Operate = MyInterface([
+
+    //        //        ]);
+
+    //        //玩家操作类基类
+    //        var Abstract_Game_Operate = MyAbstract(Operate, {
+    //            Abstract: {
+    //                Mousedown: function () {
+    //                },
+    //                AddTimeLine: function () {
+    //                },
+    //                DoubleHit: function () {
+    //                }
+    //            }
+    //        });
+
+
+    //        var t = new Abstract_Game_Operate();
+    //        t.Start();
+
+
+    //        console.log(MyGameEngne.Probability(0.1));
+
+
+
+
+
+
+    //        //        <img src="Image/10018273_154859346 177_1.gif" />
+
+    //        //        alert("aa");
+    //        //        $("#test").html("<img src='Image/col.gif' /><img src='Image/col.gif' />");
+    //        //        $("#test_2").html("<img src='Image/col.gif' /><img src='Image/col.gif' />");
+
+
+
+
+    //        //        $("#test").html("<img src='Image/row.gif' style='overflow:hidden;'/><img src='Image/row.gif' style='overflow:hidden;'/>");
+    //        //        $("#test_2").html("<img src='Image/row.gif' style='overflow:hidden;'/><img src='Image/row.gif' style='position:absolute;'/>");
+
+
+
+
+    //        //        var imgs = $("#test").children("img")[0];
+    //        ////        alert(imgs);
+    //        ////        console.log(imgs.length);
+    //        //        //        for (i = 0; i < imgs.length; i++) {
+    //        ////        imgs.src = imgs.src;
+    //        //        //        }
+
+    //        //       
+    //        ////        setTimeout(function () {
+    //        //////            console.log("second");
+    //        ////            imgs.src = imgs.src;
+    //        ////        }, 2000);
+
+    //        //        setTimeout(function () {
+    //        //            //            console.log("second");
+    //        //            //            imgs.src = imgs.src;
+    //        //            imgs.src = imgs.src;
+    //        //            $("#test_2").html("<img src='Image/row.gif' /><img src='Image/row.gif' />");
+    //        //        }, 2000);
+
+    //        //        setTimeout(function () {
+    //        //            //            console.log("second");
+    //        //            //            imgs.src = imgs.src;
+    //        //            imgs.src = imgs.src;
+    //        //            $("#test_3").html("<img src='Image/boom.gif' />");
+    //        //        }, 4000);
+    //    });
+    //    function A() {
+    //        this.a = "haha";
+    //    };
+
+    //    A.prototype = (function () {
+    //        var Say = function () {
+    //            console.log(this.a);
+    //        };
+
+    //        return {
+    //            Say: Say
+    //        }
+    //    } ());
+
+    //    var m = new A;
+    //    m.Say();
+
+
+    //        function A() {
+    //            this.a = 0;
+    //        };
+
+    //        A.prototype.b = 100;
+
+    //        var m = new A();
+
+    //        console.log(m.a);
+
+    //        m.a++;
+
+    //        console.log(m.a);
+
+    //        console.log(m.b);
+
+    //        m.b++;
+
+    //        console.log(m.b);
+
+
+    //        function B() {
+    ////            this.a = 0;
+    //        };
+    //        B.prototype = new A();
+
+    //        var p = new B();
+
+    //        var t = new B();
+
+
+    //        p.b++;
+    //        console.log(p.b);
+
+    //       
+
+    //        t.b++;
+    //        console.log(t.b);
+
+
+    //    function MyObject(name) {
+    //        //定义私有变量 
+    //        //注意：此处没有用this.name，如果使用this.name变成公共属性了 
+    //        var privateName = name;
+    //        //定义私有熟悉 
+    //        var privateFunction = function () {
+    //            return "Private Function";
+    //        }
+    ////        //公共方法访问私有熟悉 
+    ////        MyObject.prototype.getName = function () {
+    ////            return privateName;
+    //        //        } 
+
+
+    //    }
+
+    ////    //公共方法访问私有熟悉
+    ////    MyObject.prototype = function () {
+    ////        return {
+    ////            getName: function () {
+    ////                console.log(privateName);
+    ////            }
+    ////        }
+    ////    } ();
+
+    //var m = new MyObject("a");
+
+    //console.log(m.getName());
+
+
+
+
+    //        var Person = MyClass({
+    //            init: function (name) {
+    //                this.name = name;
+    //            },
+    //            Private: {
+    //                _m: function () {
+    //                    console.log("private!");
+    //                },
+    //                _a: 1,
+    //                _b: {
+    //                    _c: 2
+    //                }
+    //            },
+    //            Public: {
+    //                getName: function () {
+    //                    console.log("Person_getName");
+    //                },
+    //                getEmployeeID: function (a) {
+    //                    console.log("Person");
+
+    //                }
+    //            }
+    //        });
+
+
+
+
+    //        var Person_Interface = MyInterface(["getName"], ["c", "d"]);
+
+
+    //        var Person = MyClass({
+    //            init: function (name) {
+    //                this.name = name;
+    //            },
+    //            Private: {
+    //                _m: function () {
+    //                    console.log("private!");
+    //                },
+    //                _a: 1,
+    //                _b: {
+    //                    _c: 2
+    //                }
+    //            },
+    //            Public: {
+    //                m: 1,
+    //                getName: function () {
+    //                    console.log("Person_getName");
+    //                },
+    //                getEmployeeID: function (a) {
+    //                    console.log("Person");
+    //                    console.log(this.m);
+    //                    //                    console.log("arguments[1] = " + arguments[1]);
+    //                }
+    //            }
+    //            //            Abstract: {
+    //            //            //                say: function () {
+    //            //            //                },
+    //            //            //                t: 1
+    //            //        }
+    //        });
+
+
+    //        var Employee = MyClass(Person, {
+    //            init: function (name) {
+    //                this.name = name;
+    //            },
+    //            Private: {
+    //                //                _m: function () {
+    //                //                    console.log(this._a);   //调用私有属性_a
+    //                //                    //                                        console.log("private!");
+    //                //                    //                                        console.log("private!");
+    //                //                    //                    this.base();
+    //                //                    this.say();
+    //                //                    //                    console.log("t =" + MyClass.Public.t);      //（this指针传入）调用公有方法say()
+    //                //                },
+    //                //                _a: 1,
+    //                //                _b: {
+    //                //                    _c: 2
+    //                //                }
+    //                _aaaa: 1
+    //            },
+    //            Public: {
+    //                m: 100,
+    //                say: function () {
+    //                    console.log("_aaaa = " + this._aaaa);
+    //                    console.log("say");
+    //                },
+    //                getName: function () {
+    //                    //                this.baseClass.getName();
+    //                    console.log("Employee_getName");
+    //                },
+    //                getEmployeeID: function () {
+    //                    this.baseClass.getEmployeeID("aaa");
+    //                    this.base();
+    //                    //                    $private._a++;
+    //                    //                    this._m();
+    //                    //                    console.log(this.t);
+    //                    //                    MyClass.Public.t++;
+    //                    //                    $private._m();
+    //                    ////                    console.log($private._a);
+    //                    //                    console.log(this.t);
+    //        //                    //                    $private._m(this);  //调用私有方法_m，并将this指针传入
+
+    //        //                }
+    //        //                //            b: function () {
+    //        //                //            },
+    //        //                //            c: 1,
+    //        //                //            d: 1,
+    //        //                //            t: function () {
+    //        //                //                console.log("t");
+    //        //                //            }
+    //        //            },
+    //        //            Static: {
+    //        //                s: 0
+    //        //            }
+    //        //        });
+
+
+    //        //                    var m = new Employee("name");
+    //        //                    m.say();
+
+
+    //        //        var Interface = MyInterface("B");
+    //        //        var Interface_2 = MyInterface(Interface);
+
+    //        //        //        for (var name in Interface_2.prototype) {
+    //        //        //            console.log(name);
+    //        //        //        }
+
+    //        //        var A = MyAbstract({
+    //        //            Abstract: {
+    //        //                a: function () {
+    //        //                },
+    //        //                b: 0
+    //        //            }
+    //        //        });
+
+    //        //        var B = MyAbstract({ AbstractClass: A, Interface: Interface }, {
+    //        //            Public: {
+    //        //                a: function () {
+    //        //                }
+    //        //            },
+    //        //            Abstract: {
+    //        //                A: function () {
+    //        //                },
+    //        //                B: function () {
+    //        //                },
+    //        //                b: 100
+    //        //            }
+    //        //        });
+
+    //        //        var Interface_Operate = MyInterface([
+    //        //    "Use"   //使用道具/技能
+    //        //    ]);
+    //        //玩家操作类接口
+    //        var Interface_Game_Operate = MyInterface([
+    //        "Mousedown",    //点击方块
+    //        "AddTimeLine",   //计时器增加
+    //        "DoubleHit"     //判断是否为连击
+    //    ]);
+
+    //        var Operate = MyAbstract({
+    ////            Public: {
+    ////               
+    ////            },
+    //            Abstract: {
+    //                Prop: function () {
+    //                },
+    //                Say: function () {
+    //                    console.log("Operate");
+    //                }
+    //            }
+    //        });
+
+    //        var T = MyClass({ Class: Operate }, {
+    //            Public: {
+    ////                Mousedown: function () {
+    ////                },
+    ////                DoubleHit: function () {
+    ////                },
+    ////                AddTimeLine: function () {
+    ////                },
+    //                Prop: function () {
+    //                },
+    //                Say: function () {
+    ////                    this.base();
+    //                }
+    //            }
+    //        });
+
+    //        var t = new T();
+    //        t.Say();
+    //        //*子类
+
+    //        //Boss操纵类
+
+
+    //        //玩家操作类接口（继承操纵类接口）
+    //        var Interface_Game_Operate = MyInterface(Interface_Operate, [
+    //        "AddTimeLine"   //计时器增加
+    //    ]);
+
+    //        var Game = MyAbstract({ Interface: Interface_Game_Operate }, {
+    //            Public: {
+    //                AddTimeLine: function () {
+    //                },
+    //                Use: function () {
+    //                }
+    //            },
+    //            Abstract: {
+    //                T: function () {
+    //                }
+    //            }
+    //        });
+
+    //        //        var a = new Game();
+    //        //                a.Use();
+    //        //       console.log(a.constructor === Game);
+    //        //        Game.prototype.AddTimeLine();
+    //        var Game_2 = MyAbstract(Game, {
+    //            Public: {
+    //                AddTimeLine1: function () {
+    //                }
+    //                //                Use: function () {
+    //                //                }
+    //            },
+    //            Abstract: {
+    //                T: function () {
+    //                }
+    //            }
+    //        });
+
+
+    //        //    //        var t = new Interface_Game_Operate();
+
+    //        var Operate_Single = MyClass({ Class: Game }, {
+    //            Public: {
+    //                AddTimeLine: function () {
+    //                },
+    //                Use: function () {
+    //                },
+    //                T: function () {
+    //                }
+    //            }
+    ////            Abstract: {
+    ////                T: function () {
+    ////                }
+    ////            }
+    //        });
+
+
+
+
+    //                        var m = new Person("name");
+    //                                m._m();
+    //                        console.log(m._a);
+    ////                console.log(m._a);
+    ////                for (var item in m) {
+    ////                    console.log("item = " + item);
+    ////                }
+
+    //        function P_A() {
+    //            this.a = 0;
+
+    ////            delete _A.prototype.b;
+    //        }
+    ////        A.prototype.b = 100;
+
+    //        console.log(P_A.toString());
+    //        //        console.log(GetFunctionName(A).length);
+    //        var temp = GetFunctionName(P_A);
+    //        console.log(temp.search(/(^_)|(^P_)/));
+    //        var t = new A();
+
+    //        console.log(t.b);
+
+
+    //    m.say();
+    //    console.log("m = " + m.m);
+
+
+
+
+    //        var m = new Employee("name");
+    //        m.getEmployeeID("aaaa");    //"aaaa"   1
+
+
+    //        console.log("aaa");
+
+    //        function A() {
+    //            this.t = 1;
+    //            console.log("A!");
+    //        }
+    //        //        A.prototype.t = 2;
+
+
+    //        function B() {
+    //        }
+    //        //        B.prototype = new A;
+    //        operate.Inherit(B, A);
+
+    //        var m = new B();
+
+    //        console.log(m.t);
+
+
+
+
+
+    //        var t = new Employee("name");
+    //        t.getEmployeeID("aaaa");    //"aaaa"   1
+    //        console.log(MyClass.Public.t);
+
+    //        m.getName();    //"Person_getName"  "Employee_getName"
+    //        console.log(Employee.s);    //0
+    //        Employee.s++;
+    //        console.log(Employee.s);    //1
+    //        var x = new Employee("name");
+    //        Employee.s++;
+    //        console.log(Employee.s);    //2
+    //        m.getEmployeeID("aaaa");
+    //        m.getName();
+    //        console.log(Employee.s);
+    //        Employee.s++;
+    //        console.log(Employee.s);
+    //        var x = new Employee("name");
+    //        Employee.s++;
+    //        console.log(Employee.s);
+    ////                //        m.Private.M();
+    ////                m.getEmployeeID();
+    ////                var t = new Employee("name");
+    ////                t.getEmployeeID();
+
+
+
+    //        function A() {
+    //            var _a = 0;
+
+    //            this.Modify = function () {
+    //                _a++;
+    //                return _a;
+    //                //                return _a = 100;
+    //            };
+    //        };
+
+
+    //        function B() {
+    //            //            this.Get = function () {
+    //            //            };
+    //        }
+    //        B.prototype = new A();
+
+    //        B.prototype.Get = function () {
+    //            return this.Modify();
+    //        };
+
+    //        var t = new B();
+    //        console.log(t.Get());
+    //        console.log(t.Get());
+
+    //        var m = new B();
+    //        console.log(m.Get());
+
+    //        A.prototype.Modify = function () {
+    //        }
+
+
+
+
+
+    //                var w = new Employee("name");
+    //                w.getEmployeeID();
+
+
+
+    //                var m = new Person("name");
+    //        //        //        Person.private();
+    //                m.getEmployeeID();
+    //        //        //        m.Private.M();
+    //                m.getEmployeeID();
+    //                var t = new Person("name");
+    //                t.getEmployeeID();
+
+
+    //        var w = new Person("name");
+    //        w.getEmployeeID();
+
+    //        MyClass.Private.A++;
+    //        delete MyClass.Private;
+    //        MyClass.Private();
+    //        delete m.private;
+    //        m.private();
+    //        m.private();
+
+
+
+
+    //        var t = {};
+    //        //        var m = {
+    //        //            A: 1,
+    //        //            B: 2
+    //        //        };
+    //        var m = {
+    //            A: {
+    //                q: 1
+    //            },
+    //            B: [1, 2]
+    //        };
+    ////        t = operate.ExtendDeep(m);
+
+    //                operate.Extend(t, m);
+
+    //        console.log(t.A.q);
+    ////        alert(t.A.q);
+    //        t.A.q = 2;
+
+    //        console.log(m.A.q);
+
+});
+</script>-->
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+﻿a
+{
+	text-decoration:none; color:#fff;
+}
+.container
+{
+	padding-left:13px; padding-top:6px;
+}
+
+/* 子窗体确定按钮 */
+
+.window_submit
+{
+    margin-top:20px;width:200px;
+}

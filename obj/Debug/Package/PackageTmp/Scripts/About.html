@@ -1,0 +1,427 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>关于</title>
+
+
+    <link href="../Css/Control/DOTA_All.css" rel="stylesheet" type="text/css" />
+
+<style type="text/css">
+html, body
+{
+    	margin:0px; padding:0px; font-size:12px; 
+    	background:#506DA9; 
+    	color:#eee;
+	-moz-user-select: none; -khtml-user-select: none; user-select: none; line-height:24px;
+	font-family: "宋体", "Courier New"; overflow:hidden;
+}
+.text{
+	border:1px solid #2B4A84; background:#E4F4FD; color:#2B4A84; height:17px; line-height:16px; width:60px;
+}
+.btnx{
+	height:22px; width:50px; background:#555; color:#fff;
+}
+form{
+	margin:0px; padding:0px;
+}
+#container{
+	width:600px; 
+	/*height: 460px; */
+	margin:0px auto;
+}
+#menu{
+	height:26px;
+}
+#content{
+	padding:2px;
+}
+#content table{
+	border-collapse:collapse; background:#6b8bbb;
+}
+#content table td{
+	width:30px; height:34px; border:1px solid #2B4A84;
+}
+#content table .sett{
+	background:#2980BE;
+}
+#mapMsg, #userInfo{
+	padding-left:5px; padding-right:5px; line-height:22px;
+}
+#userInfo div{
+	margin-right:10px;
+}
+#formAbout{
+	display:none;
+}
+#about{
+	padding-left:20px; line-height:20px; color:#fff; letter-spacing:1px;
+}
+#saveMap{
+	display:none;
+}
+
+
+
+#content table .set{
+	background:url(/image/boxbg.gif) no-repeat;
+}
+</style>
+
+
+
+
+
+</head>
+
+<body>
+	<!--<div id="about">
+        <div>JavaScript版连连看</div> 
+        <div>版本：v0.1</div> 
+        <div>作者：Freewind</div> 
+        <div>ＱＱ：573704282</div> 
+        <div>版权所有 Copyright&copy; 2010</div> 
+	</div>-->
+
+    <!--<form method="post" id="form1" name="form1" action="saveMap.asp" target="saveMap">-->
+	    <!--<input type="hidden" name="mapString" id="mapString" value="" />-->
+        <div id="container">
+           <!-- <div id="menu"></div>-->
+            <div id="content">
+            </div>
+            <div id="mapMsg">
+                <p>
+                    您最多能添加10张地图，当前已添加 <strong style="color:black;" id="exist_map"></strong> 张地图
+                </p>
+                <p>
+                方块数量: <input type="text" class="text" id="num" readonly="readonly" maxlength="4" size="2" style="width:25px;" />
+                <b>&nbsp;注</b>：当方块数在40-200间且为双数时有效。
+                </p>
+            </div>
+            <div id="userInfo" style="border:0px solid red;">
+        	    <div>
+                    地图名称: <input type="text" class="text" id="mapName" name="mapName" maxlength="20" size="10" /> &nbsp;
+                    您的姓名：<input type="text" class="text" id="authorName" name="authorName" maxlength="20" size="10" /> &nbsp;
+                </div>
+                <div id="btnList"></div>
+            </div>
+        </div>
+   <!-- </form>-->
+
+    <script src="../jquery-1.7.js" type="text/javascript"></script>
+
+    <script src="../MyBasicOperate.js" type="text/javascript"></script>
+
+    <script src="../MyGameEngine.js" type="text/javascript"></script>
+
+    <script src="Control/Button.js" type="text/javascript"></script>
+    <script src="Control/Window.js" type="text/javascript"></script>
+    <script src="Control/CheckBox.js" type="text/javascript"></script>
+    <script src="Control/Drag.js" type="text/javascript"></script>
+    <script src="Control/Menu.js" type="text/javascript"></script>
+    <script src="Control/MyPaging.js" type="text/javascript"></script>
+    <script src="Control/MySelect.js" type="text/javascript"></script>
+    <script src="Control/ToolBar.js" type="text/javascript"></script>
+
+
+    <script src="LianLianKan/Global.js" type="text/javascript"></script>
+
+
+    <script type="text/javascript">
+        var MapEdit = MyClass({
+            Init: function () {
+                this._mouseDown = true;
+                this._flag = false;
+                this._isSaving = false;
+                document.getElementById("num").value = this._num = 0;
+
+                this._InitMenu();
+                this._InitMap();
+                this._InitEvent();
+
+                //                this._SetAll(false);
+            },
+            Private: {
+                _table: null,
+                _menu: null,
+                _mapStr: "",
+                _mouseDown: false,
+                _isSaving: false,
+                _flag: false,   //加入/取消方块标志
+                _num: 0,
+
+                _InitMap: function () {
+                    var html = ["<table border='0' cellpadding='0' cellspacing='0'>"];
+                    //调用父页面的连连看全局config
+                    //注意：要加1 ！
+                    html.push(new Array(parent.LianLianKan.config.ROW + 1).join("<tr>" + new Array(parent.LianLianKan.config.COL + 1).join("<td style='height:33px;'></td>") + "</tr>"));
+                    html.push("</table>");
+
+                    $("#content").html(html.join(""));
+
+                    this._table = $("#content table").first();
+                },
+                _InitMenu: function () {
+                    this._menu = new YYC.MENU.Menu({ id: "menuContainer", items: [
+                    		    {
+                    		        text: '编辑(E)',
+                    		        menu: {
+                    		            items: [
+                    					    {
+                    					        text: '清空方块', handler: MyGameEngine.Event.BindEvent(this, this.Handler, 'clearAll')
+                    					    }, {
+                    					        text: '全选方块', handler: MyGameEngine.Event.BindEvent(this, this.Handler, 'selectAll')
+                    					    }, {
+                    					        text: '保存', handler: MyGameEngine.Event.BindEvent(this, this.Handler, 'saveMap')
+                    					    }, {
+                    					        text: '退出', handler: MyGameEngine.Event.BindEvent(this, this.Handler, 'exit')
+                    					    }
+                    				    ]
+                    		        }
+                    		    }, {
+                    		        text: '地图(M)',
+                    		        menu: {
+                    		            items: [
+                    					    {
+                    					        text: '重置自定义地图', handler: MyGameEngine.Event.BindEvent(this, this.Handler, 'clearAllMap')
+                    					    }
+                    				    ]
+                    		        }
+                    		    }
+                    		    ]
+                    });
+                    //加入到弹出框中
+                    self.parent.dlg.AddToolBar({ menu: this._menu });
+                },
+                _InitEvent: function () {
+                    //                    MyGameEngine.Event.AddEvent(this._table, "click", MyGameEngine.Event.BindEvent(this, this._onClick));
+                    MyGameEngine.Event.AddEvent(this._table, "mousedown", MyGameEngine.Event.BindEvent(this, this._OnMouseDown));
+                    MyGameEngine.Event.AddEvent(this._table, "mousemove", MyGameEngine.Event.BindEvent(this, this._OnMouseMove));
+                    MyGameEngine.Event.AddEvent(this._table, "mouseup", MyGameEngine.Event.BindEvent(this, this._OnMouseUp));
+
+                    //右击事件，用于阻止默认动作（阻止弹出菜单）
+                    MyGameEngine.Event.AddEvent(this._table, "contextmenu", MyGameEngine.Event.BindEvent(this, this._OnContext));
+                },
+                _OnMouseDown: function (oEvent) {
+                    //左键加入方块，右键/中键取消方块
+                    this._flag = oEvent.mouseButton == 1 ? true : false;
+                    this._mouseDown = true;
+                    this._SetFlag(oEvent);
+
+
+                    //                    console.log("down ", oEvent.mouseButton);
+                    //                    console.log(oEvent.button);
+
+                    //                    //右击
+                    //                    if (oEvent.mouseButton == 2) {
+                    //                        console.log("右击！");
+                    //                        oEvent.preventDefault();
+                    //                        oEvent.stopBubble();
+                    //                        //                                                return false;   //禁止弹出菜单
+                    //                    }
+                },
+                _OnMouseMove: function (oEvent) {
+                    if (this._mouseDown) {
+                        this._SetFlag(oEvent);
+                    }
+                },
+                _OnMouseUp: function (oEvent) {
+                    this._mouseDown = false;
+
+                    //                    console.log("up ", oEvent.mouseButton, typeof navigator.appVersion.match(/MSIE\s(\d)/i));
+
+                },
+                //                _onClick: function (oEvent) {
+                //                    if (oEvent.button != 2) {
+                //                        this.setFlag(oEvent, true);
+                //                    }
+                //                },
+                //阻止右键弹出菜单
+                _OnContext: function (oEvent) {
+                    oEvent.preventDefault();
+                },
+
+
+                _SetFlag: function (oEvent) {
+                    var target = oEvent.target;
+                    if (target.tagName && target.tagName.toLowerCase() == "td") {
+                        if (this._flag) {
+                            if (target.className != "set") {
+                                target.className = "set";
+                                this._num++;
+                            }
+                        } else {
+                            if (target.className == "set") {
+                                target.className = "";
+                                this._num--;
+                            }
+                        }
+                        $("#num").val(this._num);
+                    }
+                },
+                //清空或全选
+                _SetAll: function (flag) {
+                    var t = this._table[0], css = flag ? "set" : "";
+                    for (var i = 0; i < t.rows.length; i++) {
+                        for (var j = 0; j < t.rows[i].cells.length; j++) {
+                            t.rows[i].cells[j].className = css;
+                        }
+                    }
+                    this._num = flag ? 10 * 20 : 0;
+                    $("#num").val(this._num);
+                },
+                //保存地图（保存到cookie中）
+                _SaveMap: function () {
+                    var map = "";
+                    var number = 0;
+
+                    //新添加的地图的序号
+                    number = operate.GetCookie("YYC_LianLianKan_number") == "no" ? 1 : Number(operate.GetCookie("YYC_LianLianKan_number")) + 1;
+
+                    //数据验证
+                    //                    if (this._isSaving) {
+                    //                        alert("正在保存地图，请稍候再试！");
+                    //                        return;
+                    //                    }
+
+                    //地图最多能添加10张
+                    if (number >= 10) {
+                        alert("您最多能添加10张地图！");
+                        return false;
+                    }
+                    if (this._num < 40 || this._num > 200 || this._num % 2 == 1) {
+                        alert("地图中方块数错误，请修改后再保存！");
+                        return;
+                    }
+                    if ($("#mapName").val() == "") {
+                        alert("请输入地图名称!");
+                        return;
+                    }
+                    if ($("#authorName").val() == "") {
+                        alert("请输入您的名称!");
+                        return;
+                    }
+
+
+                    if (confirm("确定要提交第" + number.toString() + "个自定义地图吗？")) {
+                        //生成地图数据
+                        $(this._table).find("td").each(function () {
+                            if ($(this).attr("class") === "set") {
+                                map += "1";
+                            }
+                            else {
+                                map += "_";
+                            }
+                        });
+
+                        //“地图名|作者名|地图数据”
+                        this._mapStr = $("#mapName").val() + "|" + $("#authorName").val() + "|" + map;
+
+                        //                    console.log(this._mapStr);
+
+                        //                    this._isSaving = true;
+
+
+
+
+                        //加入到cookie中，过期时间设为100个小时
+
+                        try {
+                            //存储地图数据
+                            operate.TrySetCookie("YYC_LianLianKan" + number.toString(), this._mapStr, 100);
+                            //存储地图序号
+                            operate.TrySetCookie("YYC_LianLianKan_number", number.toString(), 100);
+
+                            alert("添加地图成功！");
+                        }
+                        catch (e) {
+                            alert("添加地图失败！");
+                            throw e;
+                        }
+                    }
+                    //                                        console.log(document.cookie);
+                },
+                _Exit: function () {
+                    this._Dispose();
+
+                    self.parent.CloseDialog();
+                },
+                _ClearAllMap: function () {
+                    var number = operate.GetCookie("YYC_LianLianKan_number") == "no" ? 0 : Number(operate.GetCookie("YYC_LianLianKan_number"));
+                    var i = 0;
+
+                    if (confirm("确定要重置自定义地图吗？您所有的自定义地图会被清除")) {
+                        for (i = 0; i < number; i++) {
+                            operate.ClearCookie("YYC_LianLianKan" + i.toString());
+                        }
+                        operate.ClearCookie("YYC_LianLianKan_number");
+                    }
+                    //                    console.log(document.cookie);
+                },
+                _Dispose: function () {
+                    //                    this._menu.Dispose();
+
+                    var evt = MyGameEngine.Event,
+                        t = this._table;
+
+                    evt.RemoveEvent(t, "mousedown", this._OnMouseDown);
+                    evt.RemoveEvent(t, "mouseup", this._OnMouseUp);
+                    evt.RemoveEvent(t, "mousemove", this._OnMouseMove);
+                    evt.RemoveEvent(t, "contextmenu", this._OnContext);
+
+                    //                    this._menu.Dispose();     //window控件调用Dispose()方法时，会清除ToolBar（包括了this._menu）
+                    this._table = null;
+//                    console.log("aa");
+                }
+            },
+            Public: {
+                //操作处理中介
+                Handler: function () {
+                    //                    console.log(arguments[0], arguments[1]);
+                    //取出第一个参数后面的参数
+                    var args = Array.prototype.slice.call(arguments, 2);
+                    var self = this;
+
+                    switch (arguments[1]) {
+                        case "clearAll":
+                            this._SetAll(false);
+                            break;
+                        case "selectAll":
+                            this._SetAll(true);
+                            break;
+                        case "saveMap":
+                            this._SaveMap();
+                            break;
+                        case "exit":
+                            this._Exit();
+                            break;
+                        case "clearAllMap":
+                            this._ClearAllMap();
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        });
+
+//        setTimeout(function () { console.log($("#container").height()); }, 0);
+
+        $(function () {
+
+            var editor = new MapEdit();
+
+            //显示已添加的自定义地图序号
+            var num = operate.GetCookie("YYC_LianLianKan_number") == "no" ? 0 : operate.GetCookie("YYC_LianLianKan_number");
+
+            $("#exist_map").text(num);
+
+        });
+//        editor.Handler(false, "clearAll");
+
+
+
+    </script>
+
+</body>
+</html>

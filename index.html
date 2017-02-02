@@ -1,0 +1,305 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>连连看 by YYC</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+
+
+    <script src="SoundManager/soundmanager2.js" type="text/javascript"></script>
+
+    <link href="Css/lianliankan_index.css" rel="stylesheet" type="text/css" />
+
+    <link href="Css/Control/YYC_Control.css" rel="stylesheet" type="text/css" />
+
+    <style type="text/css">
+    body
+    {
+        margin:0;
+        padding:0;
+        -moz-user-select:none;
+      /*  background-color:Red;*/
+    }
+    
+ /*   body {background:#333; -moz-user-select:none; color:White;}*/
+</style>
+
+<!--[if lte IE 7]> 
+<input type="hidden" id="ie7" value="ie7"/>
+
+<![endif]-->
+
+
+</head>
+
+<body ondragstart="operate.PreventDefault(event);" oncontextmenu="operate.PreventDefault(event);" onselectstart="operate.PreventDefault(event);">
+
+<div class="border_3" style="width:1200px;margin:0 auto;">
+
+<div style="text-align:center;">
+    <h1>
+        欢迎来到YYC的游戏世界！
+    </h1>
+    <h2>
+        <strong style="color:red;">连连看游戏</strong>
+    </h2>
+</div>
+
+<div id="game_body"  style="background-color: #3366FF;display:none;">
+    <div class="border_1" style="height:50px;">
+        <span style="float:left;">连连看 By YYC</span>
+        <span style="float:right;border:0px solid red;margin-right:50px;" id="lianliankan_menu"></span>
+    </div>
+    <div class="" style="font-size:0;">
+        <div id="game_area" class="border_2 inline_block" style="width:620px;">
+            <a name="game_area"></a>
+            <!--小地图-->
+            <div id="boss_area" style="width:100%;display:none;">
+            <div style="font-size:0;">
+               <div class="smallMap"  style="">
+                <img id="lianliankan_smallMap_bossHead" title="Boss头像" alt="Boss头像" src="Image/Map/null.gif"/>
+               </div>
+               <div class="smallMap_info" id=""  style="">
+                    <div id="lianliankan_smallMap_info"></div>
+               </div>
+               <div class="smallMap_img">
+                <img id="lianliankan_smallMap_img" src="Image/Map/null.gif" style="width:100%;height:100%;"/>
+               </div>
+               <div class="smallMap" id="lianliankan_smallMap" style="">
+               </div>
+           </div>
+           <div class="boss_basicInfo">
+                <ul>
+                    <li>
+                    姓名：<span id="ai_name"></span>
+                    </li>
+                    <li>
+                    经验值：<span id="ai_experience"></span>
+                    </li>
+                    <li>
+                    等级：<span id="ai_level"></span>
+                    </li>
+                    <li>
+                    剩余方块数：<span id="ai_remainNum"></span>
+                    </li>
+                </ul>
+           </div>
+           </div>
+           <!--大地图-->
+           <div class="" id="lianliankan_map" style="margin-top:0px;position:relative;border:1px solid black;">
+           </div>
+            <div id="gameStatus">
+            	<div id="countDown" class="inline_block">倒计时：</div>
+                <div id="timeLine" class="inline_block"><div id="timeLineImg"></div></div>
+                <div id="leftBox" class="inline_block">剩余方块：<span id="remainNum"></span></div>
+            </div>
+               <div id="gameMsg">
+                    <img width="250" height="250" src="" id="index_showImg"/>
+                    <div id="index_imgInfo"></div>
+               </div>
+               <div id="index_showScore"></div>
+        </div>
+        <div class="border_2 inline_block info_1" style="margin-left:10px;width:200px;height:650px;">
+            <div>
+                <h1>玩家信息</h1>
+                <ul class="left_20">
+                    <li>姓名：<span id="player_name"></span></li>
+                    <li>得分：<span id="player_score"></span></li>
+                    <li>等级：<span id="player_level"></span></li>
+                    <li>已挑战成功<span id="player_boss_index"></span>个boss</li>
+                    <li>已用时间：<span id="info_time">00:00</span></li>
+                    <li>连击数：<span id="info_doubleHit">0</span>/<span id="info_highestDoubleHit">0</span></li>
+                </ul>
+            </div>
+            <div style="border:0px solid red;">
+                <h1>道具栏</h1>
+                <div class="in_center">
+                    <ul class="index_prop">
+                        <li><img id="index_prop_findPath" src="" alt="" title="指南针" width="30" height="30"/></li>
+                        <li><img id="index_prop_rearrangement" src="" alt="" title="重列" width="30" height="30"/></li>
+                        <li><img id="index_prop_bomb" src="" alt="" title="炸弹" width="30" height="30"/></li>
+                        <li><img id="index_prop_stop" src="" alt="" title="禁手" width="30" height="30"/></li>
+                        <li><img id="index_prop_roadBlock" src="" alt="" title="路障" width="30" height="30"/></li>
+                        <li><img id="index_prop_mirror" src="" alt="" title="镜子" width="30" height="30"/></li>
+                    </ul>
+                </div>
+            </div>
+            <div>
+                <h1>地图信息</h1>
+                <div class="in_center">
+                    <ul>
+                        <li><img id="mapInfo_img" alt="地图缩略图" width="100" height="100" style="border:1px solid black;"></img></li>
+                        <li>地图名：<span id="mapInfo_name"></span></li>
+                        <li>作者名：<span id="mapInfo_author"></span></li>
+                        <li>方块数：<span id="mapInfo_num"></span></li>
+                    </ul>
+                </div>
+            </div>
+            <div style="width:100%;border:0px solid red;">
+                <h1>按键</h1>
+                <div class="in_center">
+                    <div>
+                        <div id="index_button1" class="inline_block">
+                        </div><!--
+                        --><div id="index_button2" class="inline_block index_button">
+                        </div>
+                    </div>
+                    <div>
+                         <div id="index_button3" class="inline_block">
+                        </div><!--
+                        --><div id="index_button4" class="inline_block index_button">
+                        </div>
+                    </div>
+                </div>
+            </div>
+<!--                <div style="line-height:50px;">
+            &nbsp;
+            </div>-->
+        </div>
+        <div class="border_2 inline_block info_2" style="margin-left:10px;width:350px;height:650px;">
+            <h1>系统信息</h1>
+            <p id="right_info" class="right_info">
+            </p>
+        </div>
+    </div>
+</div>
+
+    <div style="line-height:50px;">
+    &nbsp;
+    </div>
+
+
+
+<!--加载图片和声音-->
+<div id="progressBar" style="width:300px;margin:0 auto;">
+<div id="progressBar_img">
+        <p>
+            <span id="imgLoadMsg">正在加载图片...</span>
+        </p>
+	    <p id="progressBar_img_show"></p>
+    </div>
+    <div id="progressBar_sound" style="display:none;">
+        <p>
+        <span id="soundLoadMsg">正在加载音效...</span>
+        </p>
+	    <p id="progressBar_sound_show"></p>
+    </div>
+
+    <div style="line-height:100px;">
+    &nbsp;
+    </div>
+</div>
+</div>
+    <script src="jquery-1.7.js" type="text/javascript"></script>
+
+    <script src="Object_Extend.js" type="text/javascript"></script>
+
+    <script src="MyGameEngine.js" type="text/javascript"></script>
+
+
+        <script src="Scripts/Control/Button.js" type="text/javascript"></script>
+    <script src="Scripts/Control/Drag.js" type="text/javascript"></script>
+    <script src="Scripts/Control/Menu.js" type="text/javascript"></script>
+    <script src="Scripts/Control/Window.js" type="text/javascript"></script>
+        <script src="Scripts/Control/ToolBar.js" type="text/javascript"></script>
+    <script src="Scripts/OperateCheckbox.js" type="text/javascript"></script>
+    <script src="Scripts/Control/MyPaging.js" type="text/javascript"></script>
+
+
+
+    <script src="MyBasicOperate.js" type="text/javascript"></script>
+
+
+    <!--观察者模式-->
+        <script src="Scripts/Observer.js" type="text/javascript"></script>
+
+    <script src="Scripts/LianLianKan/观察者模式/Subject.js" type="text/javascript"></script>
+    <script src="Scripts/LianLianKan/观察者模式/Observer.js" type="text/javascript"></script>
+
+    <!--备忘录模式-->
+    <script src="Scripts/LianLianKan/备忘录模式/Caretaker.js" type="text/javascript"></script>
+    <script src="Scripts/LianLianKan/备忘录模式/Memento.js" type="text/javascript"></script>
+
+
+    <script src="Common.js" type="text/javascript"></script>
+
+
+
+<script type="text/javascript" src="Scripts/Base.js"></script>
+<!--<script type="text/javascript" src="Scripts/Progress.js"></script>-->
+
+<script type="text/javascript" src="Scripts/PreLoadImg.js" charset="gb2312"></script>
+    <script src="Scripts/SoundLoader.js" type="text/javascript" charset="gb2312"></script>
+    <script src="progress/jquery.progressbar.js" type="text/javascript" charset="gb2312"></script>
+
+    <script src="Scripts/LianLianKan/Global.js" type="text/javascript"></script>
+
+    <script src="Scripts/LianLianKan/Sound.js" type="text/javascript"></script>
+
+    <script src="Scripts/LianLianKan/Data/Data_Map.js" type="text/javascript"></script>
+   <!-- <script src="Scripts/LianLianKan/Data/Data_Boss.js" type="text/javascript"></script>-->
+
+
+
+    <script src="Scripts/LianLianKan/DataLayer/DataLayer.js" type="text/javascript"></script>
+    <script src="Scripts/LianLianKan/BussinessLayer/Algorithm.js" type="text/javascript"></script>
+    <script src="Scripts/LianLianKan/BussinessLayer/Prop.js" type="text/javascript"></script>
+    <script src="Scripts/LianLianKan/BussinessLayer/Ability.js" type="text/javascript"></script>
+    <script src="Scripts/LianLianKan/BussinessLayer/SingleInstance.js" type="text/javascript"></script>
+
+    <script src="Scripts/LianLianKan/BussinessLayer/Operate.js" type="text/javascript"></script>
+    <script src="Scripts/LianLianKan/BussinessLayer/Operate_Single.js" type="text/javascript"></script>
+    <script src="Scripts/LianLianKan/BussinessLayer/Operate_Boss.js" type="text/javascript"></script>
+    <script src="Scripts/LianLianKan/BussinessLayer/Operate_UI.js" type="text/javascript"></script>
+
+
+    <script src="Scripts/LianLianKan/ViewLayer/Map.js" type="text/javascript"></script>
+    <script src="Scripts/LianLianKan/ViewLayer/UI_Page.js" type="text/javascript"></script>
+    <script src="Scripts/LianLianKan/ViewLayer/UI_Info.js" type="text/javascript"></script>
+
+    <script src="Scripts/LianLianKan/App.js" type="text/javascript"></script>
+  
+
+          <script src="Scripts/LianLianKan/Data/Player.js" type="text/javascript"></script>
+
+
+<!--    <script src="MyLianLianKanGame.js" type="text/javascript" charset="gb2312"></script>-->
+
+<script type="text/javascript">
+//设置、绑定事件
+    $(function () {
+        //        operate.ClearCookie("player_score");
+
+        //    var LianLianKan = {
+        //        wait: 0,
+        //        sM2: true,   //声音是否出错的标志，true为没有出错
+        //        Sound: null     //声音对象
+        //    };
+
+        soundManagerIsLoad = false;
+        soundManager.onload = function () {
+            soundManagerIsLoad = true;
+        };
+        soundManager.onerror = function () {
+            //                alert("出错了！");
+
+            App.SetsM2(false);
+
+            //        LianLianKan.sM2 = false;
+        };
+
+        //        App.Set();
+        App.LoadImage();
+
+    });
+    //释放资源
+    window.onunload = function () {
+//        if (confirm("您是否要保存游戏？")) {
+//            LianLianKan.Operate_UI.SaveInfo(null);
+//        }
+        App.Dispose();
+    }
+</script>
+
+</body>
+</html>
